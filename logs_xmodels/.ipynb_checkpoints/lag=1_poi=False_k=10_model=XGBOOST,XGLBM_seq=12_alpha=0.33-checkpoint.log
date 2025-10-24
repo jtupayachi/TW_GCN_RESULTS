@@ -1,0 +1,12 @@
+usage: BASELINE_MODELING_Graphs_CVRE-TIMESERIES-PALO_BOULDER_3h_TW-3-xmodels.py [-h] --LAG_HOURS LAG_HOURS
+                                                                                --DOWNLOAD_POIS DOWNLOAD_POIS
+                                                                                --NUM_CLUSTERS NUM_CLUSTERS
+                                                                                --MODEL
+                                                                                {LSTM,BiLSTM,GRU,1DCNN,RNN}
+                                                                                --SEQ_LENGTH SEQ_LENGTH --ALPHA
+                                                                                ALPHA
+                                                                                [--TRAFFIC_FEATURE TRAFFIC_FEATURE]
+                                                                                [--WEATHER_FEATURE WEATHER_FEATURE]
+                                                                                [--ADJACENCY ADJACENCY]
+                                                                                [--NUM_EPOCHS NUM_EPOCHS]
+BASELINE_MODELING_Graphs_CVRE-TIMESERIES-PALO_BOULDER_3h_TW-3-xmodels.py: error: argument --MODEL: invalid choice: 'XGBOOST,XGLBM' (choose from 'LSTM', 'BiLSTM', 'GRU', '1DCNN', 'RNN')

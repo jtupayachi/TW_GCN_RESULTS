@@ -1,0 +1,904 @@
+Running on: cuda
+Running with parameters: LAG_HOURS=1, DOWNLOAD_POIS=False, NUM_CLUSTERS=10, MODEL=1DCNN, SEQ_LENGTH=4, ALPHA=0.66, TRAFFIC_FEATURE=True, WEATHER_FEATURE=True, ADJACENCY=True, NUM_EPOCHS=125
+[37760, 37380, 37642, 37643, 37388, 37902, 38549, 37402, 37659, 38556, 38301, 37030, 37416, 38570, 37166, 38320, 37043, 37172, 37813, 37814, 38583, 38585, 37820, 38462, 37185, 38468, 38340, 37708, 38478, 37334, 37083, 38237, 37725, 37601, 38242, 37857, 37347, 37862, 37863, 37615, 37745, 37620, 38004, 37110, 38012]
+          zip                 hour  ...  delay_per_mile       TTI
+114758  37708  2024-01-08 14:00:00  ...       -0.144543  1.071117
+199311  37030  2024-11-25 15:00:00  ...       -0.245042  1.145850
+4772    37185  2024-12-13 20:00:00  ...       -0.116627  1.023439
+374892  37620  2024-02-21 12:00:00  ...       -0.268849  1.085906
+115270  37708  2024-01-29 22:00:00  ...       -0.028154  1.014672
+147814  37708  2024-09-09 22:00:00  ...       -0.108145  1.054321
+235958  37185  2024-08-16 14:00:00  ...       -0.228922  1.045705
+407349  37642  2024-10-07 21:00:00  ...        0.006098  0.945904
+316253  37820  2025-01-28 05:00:00  ...       -0.024579  1.003067
+360648  38549  2024-03-18 00:00:00  ...       -0.024236  1.009761
+
+[10 rows x 12 columns]
+(428760, 12)
+         station_zip             datetime  ...  Humidity Bucket  Precip. Bucket
+7735739        37601  2024-05-03 04:00:00  ...                5               1
+7033051        38012  2024-04-23 08:00:00  ...                5               1
+6339802        37814  2024-04-10 22:00:00  ...               -1              -1
+2306070        37862  2024-02-06 00:00:00  ...                5               1
+8912377        37902  2024-11-29 16:00:00  ...               -1              -1
+8918147        38556  2024-12-04 02:00:00  ...               -1              -1
+8790424        38242  2024-08-08 07:00:00  ...               -1              -1
+2320615        37601  2024-02-06 20:00:00  ...                4               1
+8853589        37110  2024-10-05 04:00:00  ...               -1              -1
+8867750        37862  2024-10-19 05:00:00  ...               -1              -1
+
+[10 rows x 12 columns]
+(428760, 12)
+       charger_id  station_zip  ... charging_time_seconds  energy_kwh
+50155     1988061        37863  ...                3347.0    2.631879
+84963     5397731        37601  ...                3600.0    4.478858
+57923    15694171        37601  ...                 370.0    5.049369
+34493     1988061        37863  ...                3600.0    4.595088
+99228    15332351        37388  ...                3354.0   13.075771
+35955    13606061        37043  ...                  61.0    0.000000
+96191     1988061        37863  ...                3600.0    5.151833
+23762    13606061        37043  ...                 305.0    3.244302
+4796     13164881        37620  ...                  60.0    0.000100
+49172    15694171        37601  ...                 121.0    0.000000
+
+[10 rows x 7 columns]
+(55055, 7)
+Empty DataFrame
+Columns: [charger_id, station_zip, start_date_time, station_latitude, station_longitude, charging_time_seconds, energy_kwh]
+Index: []
+<class 'pandas.core.frame.DataFrame'>
+Index: 55055 entries, 0 to 106306
+Data columns (total 9 columns):
+ #   Column                 Non-Null Count  Dtype         
+---  ------                 --------------  -----         
+ 0   charger_id             55055 non-null  int64         
+ 1   station_zip            55055 non-null  int64         
+ 2   start_date_time        55055 non-null  datetime64[ns]
+ 3   station_latitude       55055 non-null  float64       
+ 4   station_longitude      55055 non-null  float64       
+ 5   charging_time_seconds  55055 non-null  float64       
+ 6   energy_kwh             55055 non-null  float64       
+ 7   month_year             55055 non-null  period[M]     
+ 8   year_month             55055 non-null  period[M]     
+dtypes: datetime64[ns](1), float64(4), int64(2), period[M](2)
+memory usage: 4.2 MB
+               Period  Count_of_negatives
+7  2024-08 to 2025-01              351046
+5  2024-06 to 2024-11              352555
+6  2024-07 to 2024-12              353604
+3  2024-04 to 2024-09              354884
+4  2024-05 to 2024-10              355613
+1  2024-02 to 2024-07              356034
+0  2024-01 to 2024-06              357385
+2  2024-03 to 2024-08              358202
+Value counts for energy_kWh:
+ energy_kWh
+-1.000000     768542
+ 0.000000       1284
+ 17.066299         2
+ 9.843100          2
+ 15.860700         2
+               ...  
+ 5.833772          1
+ 0.171563          1
+ 2.296312          1
+ 2.500192          1
+ 43.750599         1
+Name: count, Length: 47663, dtype: int64
+
+Rows with energy_kWh == -1: 768542
+Rows with energy_kWh != -1: 48974
+
+Rows where energy_kWh == -1:
+       station_id     start_date_time  ...  has_retail_shopping  has_police
+0          682921 2024-01-01 00:00:00  ...                False       False
+1         1785631 2024-01-01 00:00:00  ...                False       False
+2         1932851 2024-01-01 00:00:00  ...                False       False
+3         1933211 2024-01-01 00:00:00  ...                False       False
+4         1988061 2024-01-01 00:00:00  ...                False       False
+...           ...                 ...  ...                  ...         ...
+817511   16311461 2025-01-31 01:00:00  ...                False       False
+817512   16311861 2025-01-31 01:00:00  ...                False       False
+817513   16698191 2025-01-31 01:00:00  ...                False       False
+817514   16698241 2025-01-31 01:00:00  ...                False       False
+817515   16698261 2025-01-31 01:00:00  ...                False       False
+
+[768542 rows x 19 columns]
+
+Rows where energy_kWh != -1:
+       station_id     start_date_time  ...  has_retail_shopping  has_police
+22        8851921 2024-01-01 00:00:00  ...                False        True
+91        1988141 2024-01-01 01:00:00  ...                False       False
+108       8851921 2024-01-01 01:00:00  ...                False        True
+177       1988141 2024-01-01 02:00:00  ...                False       False
+194       8851921 2024-01-01 02:00:00  ...                False        True
+...           ...                 ...  ...                  ...         ...
+817313   14083171 2025-01-30 23:00:00  ...                False       False
+817352    5397731 2025-01-31 00:00:00  ...                False       False
+817357    5525971 2025-01-31 00:00:00  ...                False       False
+817380   13606121 2025-01-31 00:00:00  ...                False       False
+817443    5525971 2025-01-31 01:00:00  ...                False       False
+
+[48974 rows x 19 columns]
+The array contains values other than 0.
+Empty DataFrame
+Columns: [station_id, start_date_time, count]
+Index: []
+Index(['station_id', 'has_restaurant', 'Wind Speed', 'has_library',
+       'travel_time_seconds', 'TTI', 'has_police', 'cvalue', 'Pressure',
+       'has_park', 'has_hospital', 'reference_speed', 'has_school',
+       'Temperature', 'has_higher_educ', 'confidence_score', 'delay_per_mile',
+       'Precip.', 'start_date_time', 'has_supermarket', 'Humidity',
+       'charging_time_seconds', 'energy_kWh', 'is_congested', 'speed',
+       'historical_average_speed', 'has_retail_shopping', 'speed_deviation'],
+      dtype='object')
+Processing timestamp::   0%|          | 0/2184 [00:00<?, ?it/s]Processing timestamp::   0%|          | 3/2184 [00:00<01:12, 29.95it/s]Processing timestamp::   0%|          | 7/2184 [00:00<01:04, 33.59it/s]Processing timestamp::   1%|          | 11/2184 [00:00<01:02, 34.71it/s]Processing timestamp::   1%|          | 15/2184 [00:00<01:01, 35.26it/s]Processing timestamp::   1%|          | 19/2184 [00:00<01:00, 35.57it/s]Processing timestamp::   1%|          | 23/2184 [00:00<01:00, 35.75it/s]Processing timestamp::   1%|          | 27/2184 [00:00<01:00, 35.87it/s]Processing timestamp::   1%|▏         | 31/2184 [00:00<00:59, 35.96it/s]Processing timestamp::   2%|▏         | 35/2184 [00:00<00:59, 36.02it/s]Processing timestamp::   2%|▏         | 39/2184 [00:01<01:29, 23.92it/s]Processing timestamp::   2%|▏         | 43/2184 [00:01<01:20, 26.61it/s]Processing timestamp::   2%|▏         | 47/2184 [00:01<01:14, 28.87it/s]Processing timestamp::   2%|▏         | 51/2184 [00:01<01:09, 30.71it/s]Processing timestamp::   3%|▎         | 55/2184 [00:01<01:06, 32.16it/s]Processing timestamp::   3%|▎         | 59/2184 [00:01<01:04, 33.12it/s]Processing timestamp::   3%|▎         | 63/2184 [00:01<01:02, 33.87it/s]Processing timestamp::   3%|▎         | 67/2184 [00:02<01:01, 34.34it/s]Processing timestamp::   3%|▎         | 71/2184 [00:02<01:00, 34.70it/s]Processing timestamp::   3%|▎         | 75/2184 [00:02<01:00, 34.96it/s]Processing timestamp::   4%|▎         | 79/2184 [00:02<00:59, 35.18it/s]Processing timestamp::   4%|▍         | 83/2184 [00:02<00:59, 35.34it/s]Processing timestamp::   4%|▍         | 87/2184 [00:02<00:59, 35.43it/s]Processing timestamp::   4%|▍         | 91/2184 [00:02<00:59, 35.43it/s]Processing timestamp::   4%|▍         | 95/2184 [00:02<00:58, 35.47it/s]Processing timestamp::   5%|▍         | 99/2184 [00:02<00:58, 35.56it/s]Processing timestamp::   5%|▍         | 103/2184 [00:03<00:58, 35.61it/s]Processing timestamp::   5%|▍         | 107/2184 [00:03<00:58, 35.68it/s]Processing timestamp::   5%|▌         | 111/2184 [00:03<00:58, 35.63it/s]Processing timestamp::   5%|▌         | 115/2184 [00:03<00:58, 35.53it/s]Processing timestamp::   5%|▌         | 119/2184 [00:03<00:58, 35.53it/s]Processing timestamp::   6%|▌         | 123/2184 [00:03<00:57, 35.56it/s]Processing timestamp::   6%|▌         | 127/2184 [00:03<00:57, 35.57it/s]Processing timestamp::   6%|▌         | 131/2184 [00:03<00:57, 35.60it/s]Processing timestamp::   6%|▌         | 135/2184 [00:03<00:57, 35.56it/s]Processing timestamp::   6%|▋         | 139/2184 [00:04<00:57, 35.51it/s]Processing timestamp::   7%|▋         | 143/2184 [00:04<00:57, 35.48it/s]Processing timestamp::   7%|▋         | 147/2184 [00:04<00:57, 35.44it/s]Processing timestamp::   7%|▋         | 151/2184 [00:04<00:57, 35.46it/s]Processing timestamp::   7%|▋         | 155/2184 [00:04<00:57, 35.55it/s]Processing timestamp::   7%|▋         | 159/2184 [00:04<00:56, 35.58it/s]Processing timestamp::   7%|▋         | 163/2184 [00:04<00:56, 35.53it/s]Processing timestamp::   8%|▊         | 167/2184 [00:04<00:56, 35.55it/s]Processing timestamp::   8%|▊         | 171/2184 [00:04<00:56, 35.56it/s]Processing timestamp::   8%|▊         | 175/2184 [00:05<01:19, 25.31it/s]Processing timestamp::   8%|▊         | 179/2184 [00:05<01:12, 27.73it/s]Processing timestamp::   8%|▊         | 183/2184 [00:05<01:07, 29.70it/s]Processing timestamp::   9%|▊         | 187/2184 [00:05<01:03, 31.27it/s]Processing timestamp::   9%|▊         | 191/2184 [00:05<01:01, 32.49it/s]Processing timestamp::   9%|▉         | 195/2184 [00:05<00:59, 33.37it/s]Processing timestamp::   9%|▉         | 199/2184 [00:05<00:58, 34.03it/s]Processing timestamp::   9%|▉         | 203/2184 [00:06<00:57, 34.46it/s]Processing timestamp::   9%|▉         | 207/2184 [00:06<00:56, 34.74it/s]Processing timestamp::  10%|▉         | 211/2184 [00:06<00:56, 34.94it/s]Processing timestamp::  10%|▉         | 215/2184 [00:06<00:56, 35.11it/s]Processing timestamp::  10%|█         | 219/2184 [00:06<00:55, 35.22it/s]Processing timestamp::  10%|█         | 223/2184 [00:06<00:55, 35.31it/s]Processing timestamp::  10%|█         | 227/2184 [00:06<00:55, 35.25it/s]Processing timestamp::  11%|█         | 231/2184 [00:06<00:55, 35.28it/s]Processing timestamp::  11%|█         | 235/2184 [00:06<00:55, 35.29it/s]Processing timestamp::  11%|█         | 239/2184 [00:07<00:55, 35.33it/s]Processing timestamp::  11%|█         | 243/2184 [00:07<00:54, 35.41it/s]Processing timestamp::  11%|█▏        | 247/2184 [00:07<00:54, 35.48it/s]Processing timestamp::  11%|█▏        | 251/2184 [00:07<00:54, 35.56it/s]Processing timestamp::  12%|█▏        | 255/2184 [00:07<00:54, 35.56it/s]Processing timestamp::  12%|█▏        | 259/2184 [00:07<00:54, 35.51it/s]Processing timestamp::  12%|█▏        | 263/2184 [00:07<00:54, 35.52it/s]Processing timestamp::  12%|█▏        | 267/2184 [00:07<00:53, 35.56it/s]Processing timestamp::  12%|█▏        | 271/2184 [00:07<00:53, 35.59it/s]Processing timestamp::  13%|█▎        | 275/2184 [00:08<00:53, 35.63it/s]Processing timestamp::  13%|█▎        | 279/2184 [00:08<00:53, 35.62it/s]Processing timestamp::  13%|█▎        | 283/2184 [00:08<00:53, 35.65it/s]Processing timestamp::  13%|█▎        | 287/2184 [00:08<00:53, 35.67it/s]Processing timestamp::  13%|█▎        | 291/2184 [00:08<00:53, 35.72it/s]Processing timestamp::  14%|█▎        | 295/2184 [00:08<00:52, 35.75it/s]Processing timestamp::  14%|█▎        | 299/2184 [00:08<00:52, 35.79it/s]Processing timestamp::  14%|█▍        | 303/2184 [00:08<00:52, 35.81it/s]Processing timestamp::  14%|█▍        | 307/2184 [00:08<00:52, 35.80it/s]Processing timestamp::  14%|█▍        | 311/2184 [00:09<00:52, 35.54it/s]Processing timestamp::  14%|█▍        | 315/2184 [00:09<01:19, 23.57it/s]Processing timestamp::  15%|█▍        | 319/2184 [00:09<01:11, 26.24it/s]Processing timestamp::  15%|█▍        | 323/2184 [00:09<01:05, 28.53it/s]Processing timestamp::  15%|█▍        | 327/2184 [00:09<01:01, 30.35it/s]Processing timestamp::  15%|█▌        | 331/2184 [00:09<00:58, 31.72it/s]Processing timestamp::  15%|█▌        | 335/2184 [00:09<00:56, 32.76it/s]Processing timestamp::  16%|█▌        | 339/2184 [00:10<00:54, 33.59it/s]Processing timestamp::  16%|█▌        | 343/2184 [00:10<00:53, 34.18it/s]Processing timestamp::  16%|█▌        | 347/2184 [00:10<00:53, 34.63it/s]Processing timestamp::  16%|█▌        | 351/2184 [00:10<00:52, 34.94it/s]Processing timestamp::  16%|█▋        | 355/2184 [00:10<00:52, 35.16it/s]Processing timestamp::  16%|█▋        | 359/2184 [00:10<00:51, 35.30it/s]Processing timestamp::  17%|█▋        | 363/2184 [00:10<00:51, 35.39it/s]Processing timestamp::  17%|█▋        | 367/2184 [00:10<00:51, 35.44it/s]Processing timestamp::  17%|█▋        | 371/2184 [00:10<00:51, 35.50it/s]Processing timestamp::  17%|█▋        | 375/2184 [00:11<00:50, 35.57it/s]Processing timestamp::  17%|█▋        | 379/2184 [00:11<00:50, 35.58it/s]Processing timestamp::  18%|█▊        | 383/2184 [00:11<00:50, 35.63it/s]Processing timestamp::  18%|█▊        | 387/2184 [00:11<00:50, 35.70it/s]Processing timestamp::  18%|█▊        | 391/2184 [00:11<00:50, 35.74it/s]Processing timestamp::  18%|█▊        | 395/2184 [00:11<00:50, 35.77it/s]Processing timestamp::  18%|█▊        | 399/2184 [00:11<00:49, 35.77it/s]Processing timestamp::  18%|█▊        | 403/2184 [00:11<00:49, 35.73it/s]Processing timestamp::  19%|█▊        | 407/2184 [00:11<00:49, 35.74it/s]Processing timestamp::  19%|█▉        | 411/2184 [00:12<00:49, 35.75it/s]Processing timestamp::  19%|█▉        | 415/2184 [00:12<00:49, 35.73it/s]Processing timestamp::  19%|█▉        | 419/2184 [00:12<00:49, 35.59it/s]Processing timestamp::  19%|█▉        | 423/2184 [00:12<00:49, 35.60it/s]Processing timestamp::  20%|█▉        | 427/2184 [00:12<00:49, 35.64it/s]Processing timestamp::  20%|█▉        | 431/2184 [00:12<00:49, 35.72it/s]Processing timestamp::  20%|█▉        | 435/2184 [00:12<00:48, 35.73it/s]Processing timestamp::  20%|██        | 439/2184 [00:12<00:48, 35.79it/s]Processing timestamp::  20%|██        | 443/2184 [00:12<00:48, 35.81it/s]Processing timestamp::  20%|██        | 447/2184 [00:13<00:48, 35.77it/s]Processing timestamp::  21%|██        | 451/2184 [00:13<00:48, 35.74it/s]Processing timestamp::  21%|██        | 455/2184 [00:13<01:10, 24.61it/s]Processing timestamp::  21%|██        | 459/2184 [00:13<01:03, 27.15it/s]Processing timestamp::  21%|██        | 463/2184 [00:13<00:58, 29.27it/s]Processing timestamp::  21%|██▏       | 467/2184 [00:13<00:55, 30.97it/s]Processing timestamp::  22%|██▏       | 471/2184 [00:13<00:53, 32.30it/s]Processing timestamp::  22%|██▏       | 475/2184 [00:14<00:51, 33.27it/s]Processing timestamp::  22%|██▏       | 479/2184 [00:14<00:50, 33.97it/s]Processing timestamp::  22%|██▏       | 483/2184 [00:14<00:49, 34.49it/s]Processing timestamp::  22%|██▏       | 487/2184 [00:14<00:48, 34.88it/s]Processing timestamp::  22%|██▏       | 491/2184 [00:14<00:48, 35.18it/s]Processing timestamp::  23%|██▎       | 495/2184 [00:14<00:47, 35.33it/s]Processing timestamp::  23%|██▎       | 499/2184 [00:14<00:47, 35.41it/s]Processing timestamp::  23%|██▎       | 503/2184 [00:14<00:47, 35.49it/s]Processing timestamp::  23%|██▎       | 507/2184 [00:14<00:47, 35.48it/s]Processing timestamp::  23%|██▎       | 511/2184 [00:15<00:47, 35.51it/s]Processing timestamp::  24%|██▎       | 515/2184 [00:15<00:46, 35.58it/s]Processing timestamp::  24%|██▍       | 519/2184 [00:15<00:46, 35.63it/s]Processing timestamp::  24%|██▍       | 523/2184 [00:15<00:46, 35.61it/s]Processing timestamp::  24%|██▍       | 527/2184 [00:15<00:46, 35.49it/s]Processing timestamp::  24%|██▍       | 531/2184 [00:15<00:46, 35.49it/s]Processing timestamp::  24%|██▍       | 535/2184 [00:15<00:46, 35.49it/s]Processing timestamp::  25%|██▍       | 539/2184 [00:15<00:46, 35.48it/s]Processing timestamp::  25%|██▍       | 543/2184 [00:15<00:46, 35.44it/s]Processing timestamp::  25%|██▌       | 547/2184 [00:16<00:46, 35.42it/s]Processing timestamp::  25%|██▌       | 551/2184 [00:16<00:46, 35.44it/s]Processing timestamp::  25%|██▌       | 555/2184 [00:16<00:45, 35.48it/s]Processing timestamp::  26%|██▌       | 559/2184 [00:16<00:45, 35.52it/s]Processing timestamp::  26%|██▌       | 563/2184 [00:16<00:45, 35.54it/s]Processing timestamp::  26%|██▌       | 567/2184 [00:16<00:45, 35.55it/s]Processing timestamp::  26%|██▌       | 571/2184 [00:16<00:45, 35.59it/s]Processing timestamp::  26%|██▋       | 575/2184 [00:16<00:45, 35.57it/s]Processing timestamp::  27%|██▋       | 579/2184 [00:16<00:45, 35.56it/s]Processing timestamp::  27%|██▋       | 583/2184 [00:17<00:44, 35.58it/s]Processing timestamp::  27%|██▋       | 587/2184 [00:17<00:44, 35.60it/s]Processing timestamp::  27%|██▋       | 591/2184 [00:17<01:03, 25.09it/s]Processing timestamp::  27%|██▋       | 595/2184 [00:17<00:57, 27.51it/s]Processing timestamp::  27%|██▋       | 599/2184 [00:17<00:53, 29.52it/s]Processing timestamp::  28%|██▊       | 603/2184 [00:17<00:50, 31.14it/s]Processing timestamp::  28%|██▊       | 607/2184 [00:17<00:48, 32.39it/s]Processing timestamp::  28%|██▊       | 611/2184 [00:18<00:47, 33.34it/s]Processing timestamp::  28%|██▊       | 615/2184 [00:18<00:46, 34.05it/s]Processing timestamp::  28%|██▊       | 619/2184 [00:18<00:45, 34.51it/s]Processing timestamp::  29%|██▊       | 623/2184 [00:18<00:44, 34.86it/s]Processing timestamp::  29%|██▊       | 627/2184 [00:18<00:44, 35.12it/s]Processing timestamp::  29%|██▉       | 631/2184 [00:18<00:44, 35.25it/s]Processing timestamp::  29%|██▉       | 635/2184 [00:18<00:43, 35.41it/s]Processing timestamp::  29%|██▉       | 639/2184 [00:18<00:43, 35.50it/s]Processing timestamp::  29%|██▉       | 643/2184 [00:18<00:43, 35.49it/s]Processing timestamp::  30%|██▉       | 647/2184 [00:19<00:43, 35.52it/s]Processing timestamp::  30%|██▉       | 651/2184 [00:19<00:43, 35.57it/s]Processing timestamp::  30%|██▉       | 655/2184 [00:19<00:42, 35.60it/s]Processing timestamp::  30%|███       | 659/2184 [00:19<00:42, 35.71it/s]Processing timestamp::  30%|███       | 663/2184 [00:19<00:42, 35.75it/s]Processing timestamp::  31%|███       | 667/2184 [00:19<00:42, 35.74it/s]Processing timestamp::  31%|███       | 671/2184 [00:19<00:42, 35.71it/s]Processing timestamp::  31%|███       | 675/2184 [00:19<00:42, 35.69it/s]Processing timestamp::  31%|███       | 679/2184 [00:19<00:42, 35.73it/s]Processing timestamp::  31%|███▏      | 683/2184 [00:20<00:41, 35.75it/s]Processing timestamp::  31%|███▏      | 687/2184 [00:20<00:41, 35.78it/s]Processing timestamp::  32%|███▏      | 691/2184 [00:20<00:41, 35.75it/s]Processing timestamp::  32%|███▏      | 695/2184 [00:20<00:41, 35.72it/s]Processing timestamp::  32%|███▏      | 699/2184 [00:20<00:41, 35.71it/s]Processing timestamp::  32%|███▏      | 703/2184 [00:20<00:41, 35.73it/s]Processing timestamp::  32%|███▏      | 707/2184 [00:20<00:41, 35.76it/s]Processing timestamp::  33%|███▎      | 711/2184 [00:20<00:41, 35.73it/s]Processing timestamp::  33%|███▎      | 715/2184 [00:20<00:41, 35.72it/s]Processing timestamp::  33%|███▎      | 719/2184 [00:21<00:41, 35.69it/s]Processing timestamp::  33%|███▎      | 723/2184 [00:21<00:40, 35.71it/s]Processing timestamp::  33%|███▎      | 727/2184 [00:21<00:57, 25.24it/s]Processing timestamp::  33%|███▎      | 731/2184 [00:21<00:52, 27.68it/s]Processing timestamp::  34%|███▎      | 735/2184 [00:21<00:48, 29.68it/s]Processing timestamp::  34%|███▍      | 739/2184 [00:21<00:46, 31.09it/s]Processing timestamp::  34%|███▍      | 743/2184 [00:21<00:44, 32.33it/s]Processing timestamp::  34%|███▍      | 747/2184 [00:21<00:43, 33.28it/s]Processing timestamp::  34%|███▍      | 751/2184 [00:22<00:42, 33.93it/s]Processing timestamp::  35%|███▍      | 755/2184 [00:22<00:41, 34.43it/s]Processing timestamp::  35%|███▍      | 759/2184 [00:22<00:40, 34.79it/s]Processing timestamp::  35%|███▍      | 763/2184 [00:22<00:40, 35.01it/s]Processing timestamp::  35%|███▌      | 767/2184 [00:22<00:40, 35.18it/s]Processing timestamp::  35%|███▌      | 771/2184 [00:22<00:40, 35.32it/s]Processing timestamp::  35%|███▌      | 775/2184 [00:22<00:39, 35.42it/s]Processing timestamp::  36%|███▌      | 779/2184 [00:22<00:39, 35.49it/s]Processing timestamp::  36%|███▌      | 783/2184 [00:22<00:39, 35.48it/s]Processing timestamp::  36%|███▌      | 787/2184 [00:23<00:39, 35.48it/s]Processing timestamp::  36%|███▌      | 791/2184 [00:23<00:39, 35.48it/s]Processing timestamp::  36%|███▋      | 795/2184 [00:23<00:39, 35.56it/s]Processing timestamp::  37%|███▋      | 799/2184 [00:23<00:38, 35.60it/s]Processing timestamp::  37%|███▋      | 803/2184 [00:23<00:38, 35.60it/s]Processing timestamp::  37%|███▋      | 807/2184 [00:23<00:38, 35.63it/s]Processing timestamp::  37%|███▋      | 811/2184 [00:23<00:38, 35.58it/s]Processing timestamp::  37%|███▋      | 815/2184 [00:23<00:38, 35.55it/s]Processing timestamp::  38%|███▊      | 819/2184 [00:23<00:38, 35.55it/s]Processing timestamp::  38%|███▊      | 823/2184 [00:24<00:38, 35.57it/s]Processing timestamp::  38%|███▊      | 827/2184 [00:24<00:38, 35.62it/s]Processing timestamp::  38%|███▊      | 831/2184 [00:24<00:37, 35.62it/s]Processing timestamp::  38%|███▊      | 835/2184 [00:24<00:37, 35.62it/s]Processing timestamp::  38%|███▊      | 839/2184 [00:24<00:37, 35.63it/s]Processing timestamp::  39%|███▊      | 843/2184 [00:24<00:37, 35.63it/s]Processing timestamp::  39%|███▉      | 847/2184 [00:24<00:37, 35.63it/s]Processing timestamp::  39%|███▉      | 851/2184 [00:24<00:37, 35.34it/s]Processing timestamp::  39%|███▉      | 855/2184 [00:25<00:37, 35.45it/s]Processing timestamp::  39%|███▉      | 859/2184 [00:25<00:37, 35.51it/s]Processing timestamp::  40%|███▉      | 863/2184 [00:25<00:37, 35.52it/s]Processing timestamp::  40%|███▉      | 867/2184 [00:25<00:37, 35.56it/s]Processing timestamp::  40%|███▉      | 871/2184 [00:25<00:55, 23.66it/s]Processing timestamp::  40%|████      | 875/2184 [00:25<00:49, 26.34it/s]Processing timestamp::  40%|████      | 879/2184 [00:25<00:45, 28.56it/s]Processing timestamp::  40%|████      | 883/2184 [00:25<00:42, 30.35it/s]Processing timestamp::  41%|████      | 887/2184 [00:26<00:40, 31.79it/s]Processing timestamp::  41%|████      | 891/2184 [00:26<00:39, 32.87it/s]Processing timestamp::  41%|████      | 895/2184 [00:26<00:38, 33.65it/s]Processing timestamp::  41%|████      | 899/2184 [00:26<00:37, 34.23it/s]Processing timestamp::  41%|████▏     | 903/2184 [00:26<00:36, 34.65it/s]Processing timestamp::  42%|████▏     | 907/2184 [00:26<00:36, 34.95it/s]Processing timestamp::  42%|████▏     | 911/2184 [00:26<00:36, 35.15it/s]Processing timestamp::  42%|████▏     | 915/2184 [00:26<00:35, 35.32it/s]Processing timestamp::  42%|████▏     | 919/2184 [00:26<00:35, 35.44it/s]Processing timestamp::  42%|████▏     | 923/2184 [00:27<00:35, 35.52it/s]Processing timestamp::  42%|████▏     | 927/2184 [00:27<00:35, 35.59it/s]Processing timestamp::  43%|████▎     | 931/2184 [00:27<00:35, 35.58it/s]Processing timestamp::  43%|████▎     | 935/2184 [00:27<00:35, 35.61it/s]Processing timestamp::  43%|████▎     | 939/2184 [00:27<00:34, 35.64it/s]Processing timestamp::  43%|████▎     | 943/2184 [00:27<00:34, 35.64it/s]Processing timestamp::  43%|████▎     | 947/2184 [00:27<00:34, 35.70it/s]Processing timestamp::  44%|████▎     | 951/2184 [00:27<00:34, 35.72it/s]Processing timestamp::  44%|████▎     | 955/2184 [00:27<00:34, 35.65it/s]Processing timestamp::  44%|████▍     | 959/2184 [00:28<00:34, 35.65it/s]Processing timestamp::  44%|████▍     | 963/2184 [00:28<00:34, 35.64it/s]Processing timestamp::  44%|████▍     | 967/2184 [00:28<00:34, 35.68it/s]Processing timestamp::  44%|████▍     | 971/2184 [00:28<00:33, 35.72it/s]Processing timestamp::  45%|████▍     | 975/2184 [00:28<00:33, 35.65it/s]Processing timestamp::  45%|████▍     | 979/2184 [00:28<00:33, 35.63it/s]Processing timestamp::  45%|████▌     | 983/2184 [00:28<00:33, 35.60it/s]Processing timestamp::  45%|████▌     | 987/2184 [00:28<00:33, 35.56it/s]Processing timestamp::  45%|████▌     | 991/2184 [00:29<00:33, 35.42it/s]Processing timestamp::  46%|████▌     | 995/2184 [00:29<00:33, 35.47it/s]Processing timestamp::  46%|████▌     | 999/2184 [00:29<00:33, 35.48it/s]Processing timestamp::  46%|████▌     | 1003/2184 [00:29<00:33, 35.46it/s]Processing timestamp::  46%|████▌     | 1007/2184 [00:29<00:48, 24.52it/s]Processing timestamp::  46%|████▋     | 1011/2184 [00:29<00:43, 27.05it/s]Processing timestamp::  46%|████▋     | 1015/2184 [00:29<00:40, 29.19it/s]Processing timestamp::  47%|████▋     | 1019/2184 [00:29<00:37, 30.89it/s]Processing timestamp::  47%|████▋     | 1023/2184 [00:30<00:36, 32.18it/s]Processing timestamp::  47%|████▋     | 1027/2184 [00:30<00:34, 33.15it/s]Processing timestamp::  47%|████▋     | 1031/2184 [00:30<00:34, 33.90it/s]Processing timestamp::  47%|████▋     | 1035/2184 [00:30<00:33, 34.44it/s]Processing timestamp::  48%|████▊     | 1039/2184 [00:30<00:32, 34.82it/s]Processing timestamp::  48%|████▊     | 1043/2184 [00:30<00:32, 35.10it/s]Processing timestamp::  48%|████▊     | 1047/2184 [00:30<00:32, 35.29it/s]Processing timestamp::  48%|████▊     | 1051/2184 [00:30<00:32, 35.35it/s]Processing timestamp::  48%|████▊     | 1055/2184 [00:30<00:31, 35.41it/s]Processing timestamp::  48%|████▊     | 1059/2184 [00:31<00:31, 35.57it/s]Processing timestamp::  49%|████▊     | 1063/2184 [00:31<00:31, 35.61it/s]Processing timestamp::  49%|████▉     | 1067/2184 [00:31<00:31, 35.63it/s]Processing timestamp::  49%|████▉     | 1071/2184 [00:31<00:31, 35.64it/s]Processing timestamp::  49%|████▉     | 1075/2184 [00:31<00:31, 35.64it/s]Processing timestamp::  49%|████▉     | 1079/2184 [00:31<00:30, 35.68it/s]Processing timestamp::  50%|████▉     | 1083/2184 [00:31<00:30, 35.73it/s]Processing timestamp::  50%|████▉     | 1087/2184 [00:31<00:30, 35.70it/s]Processing timestamp::  50%|████▉     | 1091/2184 [00:31<00:30, 35.65it/s]Processing timestamp::  50%|█████     | 1095/2184 [00:32<00:30, 35.69it/s]Processing timestamp::  50%|█████     | 1099/2184 [00:32<00:30, 35.67it/s]Processing timestamp::  51%|█████     | 1103/2184 [00:32<00:30, 35.67it/s]Processing timestamp::  51%|█████     | 1107/2184 [00:32<00:30, 35.72it/s]Processing timestamp::  51%|█████     | 1111/2184 [00:32<00:30, 35.74it/s]Processing timestamp::  51%|█████     | 1115/2184 [00:32<00:29, 35.74it/s]Processing timestamp::  51%|█████     | 1119/2184 [00:32<00:29, 35.74it/s]Processing timestamp::  51%|█████▏    | 1123/2184 [00:32<00:29, 35.70it/s]Processing timestamp::  52%|█████▏    | 1127/2184 [00:32<00:29, 35.71it/s]Processing timestamp::  52%|█████▏    | 1131/2184 [00:33<00:29, 35.68it/s]Processing timestamp::  52%|█████▏    | 1135/2184 [00:33<00:29, 35.67it/s]Processing timestamp::  52%|█████▏    | 1139/2184 [00:33<00:29, 35.68it/s]Processing timestamp::  52%|█████▏    | 1143/2184 [00:33<00:29, 35.71it/s]Processing timestamp::  53%|█████▎    | 1147/2184 [00:33<00:41, 25.13it/s]Processing timestamp::  53%|█████▎    | 1151/2184 [00:33<00:37, 27.57it/s]Processing timestamp::  53%|█████▎    | 1155/2184 [00:33<00:34, 29.57it/s]Processing timestamp::  53%|█████▎    | 1159/2184 [00:34<00:32, 31.18it/s]Processing timestamp::  53%|█████▎    | 1163/2184 [00:34<00:31, 32.41it/s]Processing timestamp::  53%|█████▎    | 1167/2184 [00:34<00:30, 33.34it/s]Processing timestamp::  54%|█████▎    | 1171/2184 [00:34<00:29, 33.96it/s]Processing timestamp::  54%|█████▍    | 1175/2184 [00:34<00:29, 34.47it/s]Processing timestamp::  54%|█████▍    | 1179/2184 [00:34<00:28, 34.85it/s]Processing timestamp::  54%|█████▍    | 1183/2184 [00:34<00:28, 35.12it/s]Processing timestamp::  54%|█████▍    | 1187/2184 [00:34<00:28, 35.29it/s]Processing timestamp::  55%|█████▍    | 1191/2184 [00:34<00:28, 35.39it/s]Processing timestamp::  55%|█████▍    | 1195/2184 [00:35<00:27, 35.45it/s]Processing timestamp::  55%|█████▍    | 1199/2184 [00:35<00:27, 35.52it/s]Processing timestamp::  55%|█████▌    | 1203/2184 [00:35<00:27, 35.60it/s]Processing timestamp::  55%|█████▌    | 1207/2184 [00:35<00:27, 35.64it/s]Processing timestamp::  55%|█████▌    | 1211/2184 [00:35<00:27, 35.71it/s]Processing timestamp::  56%|█████▌    | 1215/2184 [00:35<00:27, 35.73it/s]Processing timestamp::  56%|█████▌    | 1219/2184 [00:35<00:27, 35.73it/s]Processing timestamp::  56%|█████▌    | 1223/2184 [00:35<00:26, 35.69it/s]Processing timestamp::  56%|█████▌    | 1227/2184 [00:35<00:26, 35.71it/s]Processing timestamp::  56%|█████▋    | 1231/2184 [00:36<00:26, 35.70it/s]Processing timestamp::  57%|█████▋    | 1235/2184 [00:36<00:26, 35.74it/s]Processing timestamp::  57%|█████▋    | 1239/2184 [00:36<00:26, 35.74it/s]Processing timestamp::  57%|█████▋    | 1243/2184 [00:36<00:26, 35.68it/s]Processing timestamp::  57%|█████▋    | 1247/2184 [00:36<00:26, 35.73it/s]Processing timestamp::  57%|█████▋    | 1251/2184 [00:36<00:26, 35.79it/s]Processing timestamp::  57%|█████▋    | 1255/2184 [00:36<00:25, 35.77it/s]Processing timestamp::  58%|█████▊    | 1259/2184 [00:36<00:25, 35.76it/s]Processing timestamp::  58%|█████▊    | 1263/2184 [00:36<00:25, 35.73it/s]Processing timestamp::  58%|█████▊    | 1267/2184 [00:37<00:25, 35.75it/s]Processing timestamp::  58%|█████▊    | 1271/2184 [00:37<00:25, 35.72it/s]Processing timestamp::  58%|█████▊    | 1275/2184 [00:37<00:25, 35.73it/s]Processing timestamp::  59%|█████▊    | 1279/2184 [00:37<00:25, 35.68it/s]Processing timestamp::  59%|█████▊    | 1283/2184 [00:37<00:35, 25.23it/s]Processing timestamp::  59%|█████▉    | 1287/2184 [00:37<00:32, 27.69it/s]Processing timestamp::  59%|█████▉    | 1291/2184 [00:37<00:30, 29.68it/s]Processing timestamp::  59%|█████▉    | 1295/2184 [00:38<00:28, 31.27it/s]Processing timestamp::  59%|█████▉    | 1299/2184 [00:38<00:27, 32.48it/s]Processing timestamp::  60%|█████▉    | 1303/2184 [00:38<00:26, 33.42it/s]Processing timestamp::  60%|█████▉    | 1307/2184 [00:38<00:25, 34.12it/s]Processing timestamp::  60%|██████    | 1311/2184 [00:38<00:25, 34.56it/s]Processing timestamp::  60%|██████    | 1315/2184 [00:38<00:24, 34.87it/s]Processing timestamp::  60%|██████    | 1319/2184 [00:38<00:24, 35.11it/s]Processing timestamp::  61%|██████    | 1323/2184 [00:38<00:24, 35.28it/s]Processing timestamp::  61%|██████    | 1327/2184 [00:38<00:24, 35.47it/s]Processing timestamp::  61%|██████    | 1331/2184 [00:39<00:23, 35.58it/s]Processing timestamp::  61%|██████    | 1335/2184 [00:39<00:23, 35.61it/s]Processing timestamp::  61%|██████▏   | 1339/2184 [00:39<00:23, 35.67it/s]Processing timestamp::  61%|██████▏   | 1343/2184 [00:39<00:23, 35.69it/s]Processing timestamp::  62%|██████▏   | 1347/2184 [00:39<00:23, 35.72it/s]Processing timestamp::  62%|██████▏   | 1351/2184 [00:39<00:23, 35.80it/s]Processing timestamp::  62%|██████▏   | 1355/2184 [00:39<00:23, 35.81it/s]Processing timestamp::  62%|██████▏   | 1359/2184 [00:39<00:23, 35.75it/s]Processing timestamp::  62%|██████▏   | 1363/2184 [00:39<00:22, 35.72it/s]Processing timestamp::  63%|██████▎   | 1367/2184 [00:40<00:22, 35.70it/s]Processing timestamp::  63%|██████▎   | 1371/2184 [00:40<00:22, 35.76it/s]Processing timestamp::  63%|██████▎   | 1375/2184 [00:40<00:22, 35.80it/s]Processing timestamp::  63%|██████▎   | 1379/2184 [00:40<00:22, 35.83it/s]Processing timestamp::  63%|██████▎   | 1383/2184 [00:40<00:22, 35.84it/s]Processing timestamp::  64%|██████▎   | 1387/2184 [00:40<00:22, 35.79it/s]Processing timestamp::  64%|██████▎   | 1391/2184 [00:40<00:22, 35.73it/s]Processing timestamp::  64%|██████▍   | 1395/2184 [00:40<00:22, 35.72it/s]Processing timestamp::  64%|██████▍   | 1399/2184 [00:40<00:21, 35.71it/s]Processing timestamp::  64%|██████▍   | 1403/2184 [00:41<00:21, 35.67it/s]Processing timestamp::  64%|██████▍   | 1407/2184 [00:41<00:21, 35.68it/s]Processing timestamp::  65%|██████▍   | 1411/2184 [00:41<00:21, 35.54it/s]Processing timestamp::  65%|██████▍   | 1415/2184 [00:41<00:21, 35.51it/s]Processing timestamp::  65%|██████▍   | 1419/2184 [00:41<00:21, 35.56it/s]Processing timestamp::  65%|██████▌   | 1423/2184 [00:41<00:30, 24.73it/s]Processing timestamp::  65%|██████▌   | 1427/2184 [00:41<00:27, 27.24it/s]Processing timestamp::  66%|██████▌   | 1431/2184 [00:41<00:25, 29.34it/s]Processing timestamp::  66%|██████▌   | 1435/2184 [00:42<00:24, 30.98it/s]Processing timestamp::  66%|██████▌   | 1439/2184 [00:42<00:23, 32.29it/s]Processing timestamp::  66%|██████▌   | 1443/2184 [00:42<00:22, 33.30it/s]Processing timestamp::  66%|██████▋   | 1447/2184 [00:42<00:21, 34.04it/s]Processing timestamp::  66%|██████▋   | 1451/2184 [00:42<00:21, 34.61it/s]Processing timestamp::  67%|██████▋   | 1455/2184 [00:42<00:20, 35.04it/s]Processing timestamp::  67%|██████▋   | 1459/2184 [00:42<00:20, 35.32it/s]Processing timestamp::  67%|██████▋   | 1463/2184 [00:42<00:20, 35.53it/s]Processing timestamp::  67%|██████▋   | 1467/2184 [00:42<00:20, 35.68it/s]Processing timestamp::  67%|██████▋   | 1471/2184 [00:43<00:19, 35.75it/s]Processing timestamp::  68%|██████▊   | 1475/2184 [00:43<00:19, 35.77it/s]Processing timestamp::  68%|██████▊   | 1479/2184 [00:43<00:19, 35.80it/s]Processing timestamp::  68%|██████▊   | 1483/2184 [00:43<00:19, 35.81it/s]Processing timestamp::  68%|██████▊   | 1487/2184 [00:43<00:19, 35.76it/s]Processing timestamp::  68%|██████▊   | 1491/2184 [00:43<00:19, 35.80it/s]Processing timestamp::  68%|██████▊   | 1495/2184 [00:43<00:19, 35.81it/s]Processing timestamp::  69%|██████▊   | 1499/2184 [00:43<00:19, 35.78it/s]Processing timestamp::  69%|██████▉   | 1503/2184 [00:43<00:19, 35.78it/s]Processing timestamp::  69%|██████▉   | 1507/2184 [00:44<00:18, 35.75it/s]Processing timestamp::  69%|██████▉   | 1511/2184 [00:44<00:18, 35.78it/s]Processing timestamp::  69%|██████▉   | 1515/2184 [00:44<00:18, 35.80it/s]Processing timestamp::  70%|██████▉   | 1519/2184 [00:44<00:18, 35.79it/s]Processing timestamp::  70%|██████▉   | 1523/2184 [00:44<00:18, 35.83it/s]Processing timestamp::  70%|██████▉   | 1527/2184 [00:44<00:18, 35.88it/s]Processing timestamp::  70%|███████   | 1531/2184 [00:44<00:18, 35.87it/s]Processing timestamp::  70%|███████   | 1535/2184 [00:44<00:18, 35.85it/s]Processing timestamp::  70%|███████   | 1539/2184 [00:44<00:17, 35.85it/s]Processing timestamp::  71%|███████   | 1543/2184 [00:45<00:17, 35.81it/s]Processing timestamp::  71%|███████   | 1547/2184 [00:45<00:17, 35.73it/s]Processing timestamp::  71%|███████   | 1551/2184 [00:45<00:17, 35.34it/s]Processing timestamp::  71%|███████   | 1555/2184 [00:45<00:17, 35.36it/s]Processing timestamp::  71%|███████▏  | 1559/2184 [00:45<00:17, 35.46it/s]Processing timestamp::  72%|███████▏  | 1563/2184 [00:45<00:26, 23.68it/s]Processing timestamp::  72%|███████▏  | 1567/2184 [00:45<00:23, 26.35it/s]Processing timestamp::  72%|███████▏  | 1571/2184 [00:46<00:21, 28.61it/s]Processing timestamp::  72%|███████▏  | 1575/2184 [00:46<00:20, 30.44it/s]Processing timestamp::  72%|███████▏  | 1579/2184 [00:46<00:18, 31.85it/s]Processing timestamp::  72%|███████▏  | 1583/2184 [00:46<00:18, 32.93it/s]Processing timestamp::  73%|███████▎  | 1587/2184 [00:46<00:17, 33.71it/s]Processing timestamp::  73%|███████▎  | 1591/2184 [00:46<00:17, 34.24it/s]Processing timestamp::  73%|███████▎  | 1595/2184 [00:46<00:16, 34.73it/s]Processing timestamp::  73%|███████▎  | 1599/2184 [00:46<00:16, 35.06it/s]Processing timestamp::  73%|███████▎  | 1603/2184 [00:46<00:16, 35.24it/s]Processing timestamp::  74%|███████▎  | 1607/2184 [00:47<00:16, 35.39it/s]Processing timestamp::  74%|███████▍  | 1611/2184 [00:47<00:16, 35.53it/s]Processing timestamp::  74%|███████▍  | 1615/2184 [00:47<00:15, 35.56it/s]Processing timestamp::  74%|███████▍  | 1619/2184 [00:47<00:15, 35.62it/s]Processing timestamp::  74%|███████▍  | 1623/2184 [00:47<00:15, 35.68it/s]Processing timestamp::  74%|███████▍  | 1627/2184 [00:47<00:15, 35.68it/s]Processing timestamp::  75%|███████▍  | 1631/2184 [00:47<00:15, 35.70it/s]Processing timestamp::  75%|███████▍  | 1635/2184 [00:47<00:15, 35.69it/s]Processing timestamp::  75%|███████▌  | 1639/2184 [00:47<00:15, 35.72it/s]Processing timestamp::  75%|███████▌  | 1643/2184 [00:48<00:15, 35.77it/s]Processing timestamp::  75%|███████▌  | 1647/2184 [00:48<00:15, 35.72it/s]Processing timestamp::  76%|███████▌  | 1651/2184 [00:48<00:14, 35.58it/s]Processing timestamp::  76%|███████▌  | 1655/2184 [00:48<00:14, 35.60it/s]Processing timestamp::  76%|███████▌  | 1659/2184 [00:48<00:14, 35.64it/s]Processing timestamp::  76%|███████▌  | 1663/2184 [00:48<00:14, 35.67it/s]Processing timestamp::  76%|███████▋  | 1667/2184 [00:48<00:14, 35.72it/s]Processing timestamp::  77%|███████▋  | 1671/2184 [00:48<00:14, 35.70it/s]Processing timestamp::  77%|███████▋  | 1675/2184 [00:48<00:14, 35.59it/s]Processing timestamp::  77%|███████▋  | 1679/2184 [00:49<00:14, 35.56it/s]Processing timestamp::  77%|███████▋  | 1683/2184 [00:49<00:14, 35.61it/s]Processing timestamp::  77%|███████▋  | 1687/2184 [00:49<00:13, 35.64it/s]Processing timestamp::  77%|███████▋  | 1691/2184 [00:49<00:13, 35.68it/s]Processing timestamp::  78%|███████▊  | 1695/2184 [00:49<00:13, 35.64it/s]Processing timestamp::  78%|███████▊  | 1699/2184 [00:49<00:19, 25.21it/s]Processing timestamp::  78%|███████▊  | 1703/2184 [00:49<00:17, 27.67it/s]Processing timestamp::  78%|███████▊  | 1707/2184 [00:50<00:16, 29.66it/s]Processing timestamp::  78%|███████▊  | 1711/2184 [00:50<00:15, 31.23it/s]Processing timestamp::  79%|███████▊  | 1715/2184 [00:50<00:14, 32.44it/s]Processing timestamp::  79%|███████▊  | 1719/2184 [00:50<00:13, 33.35it/s]Processing timestamp::  79%|███████▉  | 1723/2184 [00:50<00:13, 34.01it/s]Processing timestamp::  79%|███████▉  | 1727/2184 [00:50<00:13, 34.50it/s]Processing timestamp::  79%|███████▉  | 1731/2184 [00:50<00:13, 34.72it/s]Processing timestamp::  79%|███████▉  | 1735/2184 [00:50<00:12, 35.03it/s]Processing timestamp::  80%|███████▉  | 1739/2184 [00:50<00:12, 35.27it/s]Processing timestamp::  80%|███████▉  | 1743/2184 [00:51<00:12, 35.39it/s]Processing timestamp::  80%|███████▉  | 1747/2184 [00:51<00:12, 35.43it/s]Processing timestamp::  80%|████████  | 1751/2184 [00:51<00:12, 35.49it/s]Processing timestamp::  80%|████████  | 1755/2184 [00:51<00:12, 35.55it/s]Processing timestamp::  81%|████████  | 1759/2184 [00:51<00:11, 35.58it/s]Processing timestamp::  81%|████████  | 1763/2184 [00:51<00:11, 35.70it/s]Processing timestamp::  81%|████████  | 1767/2184 [00:51<00:11, 35.70it/s]Processing timestamp::  81%|████████  | 1771/2184 [00:51<00:11, 35.69it/s]Processing timestamp::  81%|████████▏ | 1775/2184 [00:51<00:11, 35.64it/s]Processing timestamp::  81%|████████▏ | 1779/2184 [00:52<00:11, 35.63it/s]Processing timestamp::  82%|████████▏ | 1783/2184 [00:52<00:11, 35.67it/s]Processing timestamp::  82%|████████▏ | 1787/2184 [00:52<00:11, 35.72it/s]Processing timestamp::  82%|████████▏ | 1791/2184 [00:52<00:11, 35.72it/s]Processing timestamp::  82%|████████▏ | 1795/2184 [00:52<00:10, 35.67it/s]Processing timestamp::  82%|████████▏ | 1799/2184 [00:52<00:10, 35.68it/s]Processing timestamp::  83%|████████▎ | 1803/2184 [00:52<00:10, 35.69it/s]Processing timestamp::  83%|████████▎ | 1807/2184 [00:52<00:10, 35.72it/s]Processing timestamp::  83%|████████▎ | 1811/2184 [00:52<00:10, 35.68it/s]Processing timestamp::  83%|████████▎ | 1815/2184 [00:53<00:10, 35.75it/s]Processing timestamp::  83%|████████▎ | 1819/2184 [00:53<00:10, 35.67it/s]Processing timestamp::  83%|████████▎ | 1823/2184 [00:53<00:10, 35.62it/s]Processing timestamp::  84%|████████▎ | 1827/2184 [00:53<00:10, 35.60it/s]Processing timestamp::  84%|████████▍ | 1831/2184 [00:53<00:14, 24.54it/s]Processing timestamp::  84%|████████▍ | 1835/2184 [00:53<00:12, 27.10it/s]Processing timestamp::  84%|████████▍ | 1839/2184 [00:53<00:11, 29.23it/s]Processing timestamp::  84%|████████▍ | 1843/2184 [00:54<00:11, 30.88it/s]Processing timestamp::  85%|████████▍ | 1847/2184 [00:54<00:10, 32.18it/s]Processing timestamp::  85%|████████▍ | 1851/2184 [00:54<00:10, 33.19it/s]Processing timestamp::  85%|████████▍ | 1855/2184 [00:54<00:09, 33.97it/s]Processing timestamp::  85%|████████▌ | 1859/2184 [00:54<00:09, 34.48it/s]Processing timestamp::  85%|████████▌ | 1863/2184 [00:54<00:09, 34.91it/s]Processing timestamp::  85%|████████▌ | 1867/2184 [00:54<00:09, 35.14it/s]Processing timestamp::  86%|████████▌ | 1871/2184 [00:54<00:08, 35.33it/s]Processing timestamp::  86%|████████▌ | 1875/2184 [00:54<00:08, 35.46it/s]Processing timestamp::  86%|████████▌ | 1879/2184 [00:55<00:08, 35.56it/s]Processing timestamp::  86%|████████▌ | 1883/2184 [00:55<00:08, 35.64it/s]Processing timestamp::  86%|████████▋ | 1887/2184 [00:55<00:08, 35.69it/s]Processing timestamp::  87%|████████▋ | 1891/2184 [00:55<00:08, 35.65it/s]Processing timestamp::  87%|████████▋ | 1895/2184 [00:55<00:08, 35.66it/s]Processing timestamp::  87%|████████▋ | 1899/2184 [00:55<00:07, 35.75it/s]Processing timestamp::  87%|████████▋ | 1903/2184 [00:55<00:07, 35.78it/s]Processing timestamp::  87%|████████▋ | 1907/2184 [00:55<00:07, 35.77it/s]Processing timestamp::  88%|████████▊ | 1911/2184 [00:55<00:07, 35.78it/s]Processing timestamp::  88%|████████▊ | 1915/2184 [00:56<00:07, 35.71it/s]Processing timestamp::  88%|████████▊ | 1919/2184 [00:56<00:07, 35.71it/s]Processing timestamp::  88%|████████▊ | 1923/2184 [00:56<00:07, 35.72it/s]Processing timestamp::  88%|████████▊ | 1927/2184 [00:56<00:07, 35.75it/s]Processing timestamp::  88%|████████▊ | 1931/2184 [00:56<00:07, 35.78it/s]Processing timestamp::  89%|████████▊ | 1935/2184 [00:56<00:06, 35.77it/s]Processing timestamp::  89%|████████▉ | 1939/2184 [00:56<00:06, 35.75it/s]Processing timestamp::  89%|████████▉ | 1943/2184 [00:56<00:06, 35.74it/s]Processing timestamp::  89%|████████▉ | 1947/2184 [00:56<00:06, 35.75it/s]Processing timestamp::  89%|████████▉ | 1951/2184 [00:57<00:06, 35.76it/s]Processing timestamp::  90%|████████▉ | 1955/2184 [00:57<00:06, 35.76it/s]Processing timestamp::  90%|████████▉ | 1959/2184 [00:57<00:06, 35.75it/s]Processing timestamp::  90%|████████▉ | 1963/2184 [00:57<00:06, 35.73it/s]Processing timestamp::  90%|█████████ | 1967/2184 [00:57<00:06, 35.69it/s]Processing timestamp::  90%|█████████ | 1971/2184 [00:57<00:05, 35.71it/s]Processing timestamp::  90%|█████████ | 1975/2184 [00:57<00:08, 25.09it/s]Processing timestamp::  91%|█████████ | 1979/2184 [00:57<00:07, 27.56it/s]Processing timestamp::  91%|█████████ | 1983/2184 [00:58<00:06, 29.59it/s]Processing timestamp::  91%|█████████ | 1987/2184 [00:58<00:06, 31.18it/s]Processing timestamp::  91%|█████████ | 1991/2184 [00:58<00:05, 32.41it/s]Processing timestamp::  91%|█████████▏| 1995/2184 [00:58<00:05, 33.32it/s]Processing timestamp::  92%|█████████▏| 1999/2184 [00:58<00:05, 34.01it/s]Processing timestamp::  92%|█████████▏| 2003/2184 [00:58<00:05, 34.45it/s]Processing timestamp::  92%|█████████▏| 2007/2184 [00:58<00:05, 34.85it/s]Processing timestamp::  92%|█████████▏| 2011/2184 [00:58<00:04, 35.02it/s]Processing timestamp::  92%|█████████▏| 2015/2184 [00:58<00:04, 35.24it/s]Processing timestamp::  92%|█████████▏| 2019/2184 [00:59<00:04, 35.36it/s]Processing timestamp::  93%|█████████▎| 2023/2184 [00:59<00:04, 35.48it/s]Processing timestamp::  93%|█████████▎| 2027/2184 [00:59<00:04, 35.57it/s]Processing timestamp::  93%|█████████▎| 2031/2184 [00:59<00:04, 35.60it/s]Processing timestamp::  93%|█████████▎| 2035/2184 [00:59<00:04, 35.62it/s]Processing timestamp::  93%|█████████▎| 2039/2184 [00:59<00:04, 35.67it/s]Processing timestamp::  94%|█████████▎| 2043/2184 [00:59<00:03, 35.70it/s]Processing timestamp::  94%|█████████▎| 2047/2184 [00:59<00:03, 35.70it/s]Processing timestamp::  94%|█████████▍| 2051/2184 [01:00<00:03, 35.77it/s]Processing timestamp::  94%|█████████▍| 2055/2184 [01:00<00:03, 35.75it/s]Processing timestamp::  94%|█████████▍| 2059/2184 [01:00<00:03, 35.74it/s]Processing timestamp::  94%|█████████▍| 2063/2184 [01:00<00:03, 35.73it/s]Processing timestamp::  95%|█████████▍| 2067/2184 [01:00<00:03, 35.74it/s]Processing timestamp::  95%|█████████▍| 2071/2184 [01:00<00:03, 35.71it/s]Processing timestamp::  95%|█████████▌| 2075/2184 [01:00<00:03, 35.75it/s]Processing timestamp::  95%|█████████▌| 2079/2184 [01:00<00:02, 35.77it/s]Processing timestamp::  95%|█████████▌| 2083/2184 [01:00<00:02, 35.77it/s]Processing timestamp::  96%|█████████▌| 2087/2184 [01:01<00:02, 35.74it/s]Processing timestamp::  96%|█████████▌| 2091/2184 [01:01<00:02, 35.76it/s]Processing timestamp::  96%|█████████▌| 2095/2184 [01:01<00:02, 35.70it/s]Processing timestamp::  96%|█████████▌| 2099/2184 [01:01<00:02, 35.64it/s]Processing timestamp::  96%|█████████▋| 2103/2184 [01:01<00:02, 35.65it/s]Processing timestamp::  96%|█████████▋| 2107/2184 [01:01<00:02, 35.64it/s]Processing timestamp::  97%|█████████▋| 2111/2184 [01:01<00:02, 35.62it/s]Processing timestamp::  97%|█████████▋| 2115/2184 [01:01<00:01, 35.63it/s]Processing timestamp::  97%|█████████▋| 2119/2184 [01:02<00:02, 25.09it/s]Processing timestamp::  97%|█████████▋| 2123/2184 [01:02<00:02, 27.58it/s]Processing timestamp::  97%|█████████▋| 2127/2184 [01:02<00:01, 29.58it/s]Processing timestamp::  98%|█████████▊| 2131/2184 [01:02<00:01, 31.22it/s]Processing timestamp::  98%|█████████▊| 2135/2184 [01:02<00:01, 32.41it/s]Processing timestamp::  98%|█████████▊| 2139/2184 [01:02<00:01, 33.33it/s]Processing timestamp::  98%|█████████▊| 2143/2184 [01:02<00:01, 34.00it/s]Processing timestamp::  98%|█████████▊| 2147/2184 [01:02<00:01, 34.48it/s]Processing timestamp::  98%|█████████▊| 2151/2184 [01:02<00:00, 34.79it/s]Processing timestamp::  99%|█████████▊| 2155/2184 [01:03<00:00, 35.02it/s]Processing timestamp::  99%|█████████▉| 2159/2184 [01:03<00:00, 35.20it/s]Processing timestamp::  99%|█████████▉| 2163/2184 [01:03<00:00, 35.37it/s]Processing timestamp::  99%|█████████▉| 2167/2184 [01:03<00:00, 35.45it/s]Processing timestamp::  99%|█████████▉| 2171/2184 [01:03<00:00, 35.59it/s]Processing timestamp:: 100%|█████████▉| 2175/2184 [01:03<00:00, 35.66it/s]Processing timestamp:: 100%|█████████▉| 2179/2184 [01:03<00:00, 35.72it/s]Processing timestamp:: 100%|█████████▉| 2183/2184 [01:03<00:00, 35.74it/s]Processing timestamp:: 100%|██████████| 2184/2184 [01:03<00:00, 34.19it/s]
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 1: New best RMSE: 11.3566
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 2: New best RMSE: 5.5367
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 3: New best RMSE: 3.8689
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 4: New best RMSE: 3.3451
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 5: New best RMSE: 3.1832
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 6: New best RMSE: 3.1042
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 7: New best RMSE: 3.0643
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 8: New best RMSE: 3.0090
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 9: New best RMSE: 2.9763
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 10: New best RMSE: 2.8742
+Fold 1, Epoch 10:
+  Train RMSE: 3.1219, Train MAE: 0.8489, Train SMAPE: 0.6331, Train MSE: 10.1334
+  Validation RMSE: 2.8742, Validation MAE: 0.8232, Validation SMAPE: 0.6524, Validation MSE: 8.4105
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 11: New best RMSE: 2.7246
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 12: New best RMSE: 2.4991
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 13: New best RMSE: 2.1832
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 14: New best RMSE: 1.7830
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 15: New best RMSE: 1.3258
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 16: New best RMSE: 1.0138
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 17: New best RMSE: 0.8323
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 18: New best RMSE: 0.7092
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 19: New best RMSE: 0.6312
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 20: New best RMSE: 0.5999
+Fold 1, Epoch 20:
+  Train RMSE: 0.6754, Train MAE: 0.2392, Train SMAPE: 0.2170, Train MSE: 0.4874
+  Validation RMSE: 0.5999, Validation MAE: 0.2234, Validation SMAPE: 0.2060, Validation MSE: 0.3988
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 21: New best RMSE: 0.5769
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 22: New best RMSE: 0.5693
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 23: New best RMSE: 0.5591
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 24: New best RMSE: 0.5506
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 26: New best RMSE: 0.5414
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 27: New best RMSE: 0.5406
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 28: New best RMSE: 0.5346
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 29: New best RMSE: 0.5326
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 30: New best RMSE: 0.5248
+Fold 1, Epoch 30:
+  Train RMSE: 0.5877, Train MAE: 0.1600, Train SMAPE: 0.1491, Train MSE: 0.3783
+  Validation RMSE: 0.5248, Validation MAE: 0.1491, Validation SMAPE: 0.1398, Validation MSE: 0.3218
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 31: New best RMSE: 0.5236
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 32: New best RMSE: 0.5214
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 33: New best RMSE: 0.5153
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 35: New best RMSE: 0.5121
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 36: New best RMSE: 0.5107
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 38: New best RMSE: 0.5086
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 39: New best RMSE: 0.5072
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 40: New best RMSE: 0.5047
+Fold 1, Epoch 40:
+  Train RMSE: 0.5641, Train MAE: 0.1315, Train SMAPE: 0.1228, Train MSE: 0.3524
+  Validation RMSE: 0.5047, Validation MAE: 0.1246, Validation SMAPE: 0.1177, Validation MSE: 0.3037
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 42: New best RMSE: 0.5018
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 48: New best RMSE: 0.5006
+Fold 1, Epoch 50:
+  Train RMSE: 0.5612, Train MAE: 0.1303, Train SMAPE: 0.1229, Train MSE: 0.3503
+  Validation RMSE: 0.5045, Validation MAE: 0.1303, Validation SMAPE: 0.1212, Validation MSE: 0.3038
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 55: New best RMSE: 0.4943
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 56: New best RMSE: 0.4923
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 57: New best RMSE: 0.4905
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 58: New best RMSE: 0.4903
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 60: New best RMSE: 0.4881
+Fold 1, Epoch 60:
+  Train RMSE: 0.5516, Train MAE: 0.1047, Train SMAPE: 0.0965, Train MSE: 0.3397
+  Validation RMSE: 0.4881, Validation MAE: 0.0988, Validation SMAPE: 0.0920, Validation MSE: 0.2910
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 67: New best RMSE: 0.4859
+Fold 1, Epoch 70:
+  Train RMSE: 0.5466, Train MAE: 0.0986, Train SMAPE: 0.0903, Train MSE: 0.3353
+  Validation RMSE: 0.4867, Validation MAE: 0.0939, Validation SMAPE: 0.0875, Validation MSE: 0.2883
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 74: New best RMSE: 0.4857
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 77: New best RMSE: 0.4856
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 80: New best RMSE: 0.4853
+Fold 1, Epoch 80:
+  Train RMSE: 0.5468, Train MAE: 0.0970, Train SMAPE: 0.0887, Train MSE: 0.3355
+  Validation RMSE: 0.4853, Validation MAE: 0.0915, Validation SMAPE: 0.0850, Validation MSE: 0.2879
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 82: New best RMSE: 0.4851
+Fold 1, Epoch 90:
+  Train RMSE: 0.5461, Train MAE: 0.0944, Train SMAPE: 0.0861, Train MSE: 0.3345
+  Validation RMSE: 0.4858, Validation MAE: 0.0907, Validation SMAPE: 0.0841, Validation MSE: 0.2884
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 91: New best RMSE: 0.4846
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 97: New best RMSE: 0.4841
+Fold 1, Epoch 100:
+  Train RMSE: 0.5470, Train MAE: 0.0940, Train SMAPE: 0.0858, Train MSE: 0.3358
+  Validation RMSE: 0.4848, Validation MAE: 0.0897, Validation SMAPE: 0.0834, Validation MSE: 0.2865
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 101: New best RMSE: 0.4835
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 106: New best RMSE: 0.4834
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 107: New best RMSE: 0.4830
+Fold 1, Epoch 110:
+  Train RMSE: 0.5452, Train MAE: 0.0932, Train SMAPE: 0.0851, Train MSE: 0.3332
+  Validation RMSE: 0.4837, Validation MAE: 0.0899, Validation SMAPE: 0.0836, Validation MSE: 0.2863
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 1, Epoch 119: New best RMSE: 0.4827
+Fold 1, Epoch 120:
+  Train RMSE: 0.5449, Train MAE: 0.0926, Train SMAPE: 0.0844, Train MSE: 0.3328
+  Validation RMSE: 0.4844, Validation MAE: 0.0905, Validation SMAPE: 0.0841, Validation MSE: 0.2874
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 1: New best RMSE: 14.9019
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 2: New best RMSE: 6.1511
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 3: New best RMSE: 4.0332
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 4: New best RMSE: 3.3211
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 5: New best RMSE: 3.1171
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 6: New best RMSE: 2.9992
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 7: New best RMSE: 2.8814
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 8: New best RMSE: 2.7339
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 9: New best RMSE: 2.4848
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 10: New best RMSE: 2.1283
+Fold 2, Epoch 10:
+  Train RMSE: 2.5628, Train MAE: 0.7993, Train SMAPE: 0.6168, Train MSE: 6.8311
+  Validation RMSE: 2.1283, Validation MAE: 0.7389, Validation SMAPE: 0.6361, Validation MSE: 4.6030
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 11: New best RMSE: 1.7591
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 12: New best RMSE: 1.3268
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 13: New best RMSE: 1.0792
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 14: New best RMSE: 0.9398
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 15: New best RMSE: 0.8330
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 16: New best RMSE: 0.7255
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 17: New best RMSE: 0.6760
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 18: New best RMSE: 0.6531
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 19: New best RMSE: 0.6122
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 20: New best RMSE: 0.6024
+Fold 2, Epoch 20:
+  Train RMSE: 0.6920, Train MAE: 0.2528, Train SMAPE: 0.2302, Train MSE: 0.5156
+  Validation RMSE: 0.6024, Validation MAE: 0.2295, Validation SMAPE: 0.2145, Validation MSE: 0.4070
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 21: New best RMSE: 0.5891
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 22: New best RMSE: 0.5716
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 23: New best RMSE: 0.5620
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 24: New best RMSE: 0.5495
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 25: New best RMSE: 0.5475
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 26: New best RMSE: 0.5429
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 27: New best RMSE: 0.5369
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 28: New best RMSE: 0.5276
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 29: New best RMSE: 0.5217
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 30: New best RMSE: 0.5175
+Fold 2, Epoch 30:
+  Train RMSE: 0.5909, Train MAE: 0.1712, Train SMAPE: 0.1606, Train MSE: 0.3926
+  Validation RMSE: 0.5175, Validation MAE: 0.1605, Validation SMAPE: 0.1507, Validation MSE: 0.3181
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 31: New best RMSE: 0.5153
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 32: New best RMSE: 0.5122
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 33: New best RMSE: 0.5097
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 34: New best RMSE: 0.5060
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 35: New best RMSE: 0.5035
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 36: New best RMSE: 0.4992
+Fold 2, Epoch 40:
+  Train RMSE: 0.5704, Train MAE: 0.1538, Train SMAPE: 0.1450, Train MSE: 0.3697
+  Validation RMSE: 0.5000, Validation MAE: 0.1440, Validation SMAPE: 0.1350, Validation MSE: 0.3024
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 42: New best RMSE: 0.4982
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 43: New best RMSE: 0.4951
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 45: New best RMSE: 0.4885
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 46: New best RMSE: 0.4856
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 47: New best RMSE: 0.4853
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 48: New best RMSE: 0.4850
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 49: New best RMSE: 0.4828
+Fold 2, Epoch 50:
+  Train RMSE: 0.5558, Train MAE: 0.1304, Train SMAPE: 0.1224, Train MSE: 0.3554
+  Validation RMSE: 0.4842, Validation MAE: 0.1255, Validation SMAPE: 0.1196, Validation MSE: 0.2898
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 58: New best RMSE: 0.4747
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 59: New best RMSE: 0.4729
+Fold 2, Epoch 60:
+  Train RMSE: 0.5439, Train MAE: 0.1091, Train SMAPE: 0.1011, Train MSE: 0.3441
+  Validation RMSE: 0.4737, Validation MAE: 0.1016, Validation SMAPE: 0.0959, Validation MSE: 0.2824
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 62: New best RMSE: 0.4714
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 67: New best RMSE: 0.4699
+Fold 2, Epoch 70:
+  Train RMSE: 0.5427, Train MAE: 0.1007, Train SMAPE: 0.0932, Train MSE: 0.3422
+  Validation RMSE: 0.4714, Validation MAE: 0.0962, Validation SMAPE: 0.0918, Validation MSE: 0.2800
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 74: New best RMSE: 0.4689
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 75: New best RMSE: 0.4671
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 76: New best RMSE: 0.4662
+Fold 2, Epoch 80:
+  Train RMSE: 0.5382, Train MAE: 0.0951, Train SMAPE: 0.0876, Train MSE: 0.3379
+  Validation RMSE: 0.4688, Validation MAE: 0.0905, Validation SMAPE: 0.0849, Validation MSE: 0.2777
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 86: New best RMSE: 0.4662
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 90: New best RMSE: 0.4656
+Fold 2, Epoch 90:
+  Train RMSE: 0.5373, Train MAE: 0.0931, Train SMAPE: 0.0855, Train MSE: 0.3374
+  Validation RMSE: 0.4656, Validation MAE: 0.0880, Validation SMAPE: 0.0829, Validation MSE: 0.2747
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 92: New best RMSE: 0.4654
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 2, Epoch 100: New best RMSE: 0.4644
+Fold 2, Epoch 100:
+  Train RMSE: 0.5366, Train MAE: 0.0914, Train SMAPE: 0.0835, Train MSE: 0.3367
+  Validation RMSE: 0.4644, Validation MAE: 0.0867, Validation SMAPE: 0.0816, Validation MSE: 0.2754
+Fold 2, Epoch 110:
+  Train RMSE: 0.5364, Train MAE: 0.0915, Train SMAPE: 0.0839, Train MSE: 0.3367
+  Validation RMSE: 0.4669, Validation MAE: 0.0877, Validation SMAPE: 0.0823, Validation MSE: 0.2763
+Fold 2, Epoch 120:
+  Train RMSE: 0.5368, Train MAE: 0.0921, Train SMAPE: 0.0842, Train MSE: 0.3369
+  Validation RMSE: 0.4672, Validation MAE: 0.0864, Validation SMAPE: 0.0809, Validation MSE: 0.2764
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 1: New best RMSE: 12.8985
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 2: New best RMSE: 5.9476
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 3: New best RMSE: 3.9552
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 4: New best RMSE: 3.4536
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 5: New best RMSE: 3.3238
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 6: New best RMSE: 3.2784
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 7: New best RMSE: 3.2458
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 8: New best RMSE: 3.2149
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 9: New best RMSE: 3.1828
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 10: New best RMSE: 3.1226
+Fold 3, Epoch 10:
+  Train RMSE: 3.0632, Train MAE: 0.8251, Train SMAPE: 0.5976, Train MSE: 9.6979
+  Validation RMSE: 3.1226, Validation MAE: 0.7813, Validation SMAPE: 0.5050, Validation MSE: 10.0230
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 11: New best RMSE: 3.0113
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 12: New best RMSE: 2.9119
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 13: New best RMSE: 2.6630
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 14: New best RMSE: 2.3188
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 15: New best RMSE: 1.8171
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 16: New best RMSE: 1.2880
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 17: New best RMSE: 0.9705
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 18: New best RMSE: 0.8037
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 19: New best RMSE: 0.7625
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 20: New best RMSE: 0.6881
+Fold 3, Epoch 20:
+  Train RMSE: 0.6693, Train MAE: 0.2832, Train SMAPE: 0.2653, Train MSE: 0.4877
+  Validation RMSE: 0.6881, Validation MAE: 0.2673, Validation SMAPE: 0.2348, Validation MSE: 0.5188
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 21: New best RMSE: 0.6464
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 22: New best RMSE: 0.6334
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 23: New best RMSE: 0.6116
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 24: New best RMSE: 0.5980
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 25: New best RMSE: 0.5944
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 26: New best RMSE: 0.5917
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 27: New best RMSE: 0.5893
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 28: New best RMSE: 0.5746
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 29: New best RMSE: 0.5647
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 30: New best RMSE: 0.5553
+Fold 3, Epoch 30:
+  Train RMSE: 0.5273, Train MAE: 0.1644, Train SMAPE: 0.1572, Train MSE: 0.3242
+  Validation RMSE: 0.5553, Validation MAE: 0.1574, Validation SMAPE: 0.1496, Validation MSE: 0.3572
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 32: New best RMSE: 0.5499
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 34: New best RMSE: 0.5460
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 35: New best RMSE: 0.5453
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 36: New best RMSE: 0.5412
+Fold 3, Epoch 40:
+  Train RMSE: 0.5120, Train MAE: 0.1481, Train SMAPE: 0.1423, Train MSE: 0.3102
+  Validation RMSE: 0.5455, Validation MAE: 0.1516, Validation SMAPE: 0.1467, Validation MSE: 0.3458
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 42: New best RMSE: 0.5400
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 43: New best RMSE: 0.5377
+Fold 3, Epoch 50:
+  Train RMSE: 0.5316, Train MAE: 0.1875, Train SMAPE: 0.1855, Train MSE: 0.3243
+  Validation RMSE: 0.5551, Validation MAE: 0.1771, Validation SMAPE: 0.1789, Validation MSE: 0.3547
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 51: New best RMSE: 0.5280
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 52: New best RMSE: 0.5273
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 53: New best RMSE: 0.5244
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 54: New best RMSE: 0.5213
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 55: New best RMSE: 0.5194
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 56: New best RMSE: 0.5189
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 59: New best RMSE: 0.5185
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 60: New best RMSE: 0.5180
+Fold 3, Epoch 60:
+  Train RMSE: 0.4864, Train MAE: 0.1043, Train SMAPE: 0.0991, Train MSE: 0.2883
+  Validation RMSE: 0.5180, Validation MAE: 0.1041, Validation SMAPE: 0.0974, Validation MSE: 0.3217
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 61: New best RMSE: 0.5178
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 63: New best RMSE: 0.5177
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 64: New best RMSE: 0.5172
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 65: New best RMSE: 0.5171
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 66: New best RMSE: 0.5164
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 68: New best RMSE: 0.5161
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 69: New best RMSE: 0.5159
+Fold 3, Epoch 70:
+  Train RMSE: 0.4814, Train MAE: 0.0990, Train SMAPE: 0.0945, Train MSE: 0.2825
+  Validation RMSE: 0.5161, Validation MAE: 0.0998, Validation SMAPE: 0.0924, Validation MSE: 0.3192
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 71: New best RMSE: 0.5154
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 75: New best RMSE: 0.5148
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 76: New best RMSE: 0.5137
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 78: New best RMSE: 0.5136
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 79: New best RMSE: 0.5126
+Fold 3, Epoch 80:
+  Train RMSE: 0.4816, Train MAE: 0.0997, Train SMAPE: 0.0950, Train MSE: 0.2829
+  Validation RMSE: 0.5136, Validation MAE: 0.0959, Validation SMAPE: 0.0891, Validation MSE: 0.3174
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 84: New best RMSE: 0.5113
+Fold 3, Epoch 90:
+  Train RMSE: 0.4775, Train MAE: 0.0940, Train SMAPE: 0.0891, Train MSE: 0.2796
+  Validation RMSE: 0.5129, Validation MAE: 0.0954, Validation SMAPE: 0.0883, Validation MSE: 0.3170
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 91: New best RMSE: 0.5095
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 92: New best RMSE: 0.5093
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 96: New best RMSE: 0.5082
+Fold 3, Epoch 100:
+  Train RMSE: 0.4741, Train MAE: 0.0849, Train SMAPE: 0.0799, Train MSE: 0.2761
+  Validation RMSE: 0.5091, Validation MAE: 0.0855, Validation SMAPE: 0.0790, Validation MSE: 0.3135
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 101: New best RMSE: 0.5077
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 105: New best RMSE: 0.5076
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 106: New best RMSE: 0.5076
+Fold 3, Epoch 110:
+  Train RMSE: 0.4735, Train MAE: 0.0832, Train SMAPE: 0.0783, Train MSE: 0.2760
+  Validation RMSE: 0.5089, Validation MAE: 0.0848, Validation SMAPE: 0.0779, Validation MSE: 0.3133
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 112: New best RMSE: 0.5075
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 115: New best RMSE: 0.5068
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 117: New best RMSE: 0.5063
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 3, Epoch 119: New best RMSE: 0.5058
+Fold 3, Epoch 120:
+  Train RMSE: 0.4733, Train MAE: 0.0797, Train SMAPE: 0.0748, Train MSE: 0.2759
+  Validation RMSE: 0.5072, Validation MAE: 0.0810, Validation SMAPE: 0.0740, Validation MSE: 0.3128
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 1: New best RMSE: 9.6756
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 2: New best RMSE: 5.2717
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 3: New best RMSE: 3.8731
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 4: New best RMSE: 3.3104
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 5: New best RMSE: 3.1915
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 6: New best RMSE: 3.1074
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 7: New best RMSE: 3.0579
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 8: New best RMSE: 2.9903
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 9: New best RMSE: 2.8564
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 10: New best RMSE: 2.7121
+Fold 4, Epoch 10:
+  Train RMSE: 2.9082, Train MAE: 0.8780, Train SMAPE: 0.6728, Train MSE: 8.7026
+  Validation RMSE: 2.7121, Validation MAE: 0.8591, Validation SMAPE: 0.7073, Validation MSE: 7.4871
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 11: New best RMSE: 2.4860
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 12: New best RMSE: 2.0756
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 13: New best RMSE: 1.6158
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 14: New best RMSE: 1.2786
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 15: New best RMSE: 0.9626
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 16: New best RMSE: 0.8333
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 17: New best RMSE: 0.7860
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 18: New best RMSE: 0.6853
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 19: New best RMSE: 0.6248
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 20: New best RMSE: 0.6003
+Fold 4, Epoch 20:
+  Train RMSE: 0.6435, Train MAE: 0.2686, Train SMAPE: 0.2540, Train MSE: 0.4462
+  Validation RMSE: 0.6003, Validation MAE: 0.2524, Validation SMAPE: 0.2273, Validation MSE: 0.3906
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 21: New best RMSE: 0.5905
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 22: New best RMSE: 0.5698
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 24: New best RMSE: 0.5443
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 25: New best RMSE: 0.5406
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 26: New best RMSE: 0.5368
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 27: New best RMSE: 0.5366
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 28: New best RMSE: 0.5275
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 30: New best RMSE: 0.5162
+Fold 4, Epoch 30:
+  Train RMSE: 0.5458, Train MAE: 0.1802, Train SMAPE: 0.1723, Train MSE: 0.3453
+  Validation RMSE: 0.5162, Validation MAE: 0.1616, Validation SMAPE: 0.1544, Validation MSE: 0.3052
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 31: New best RMSE: 0.5141
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 35: New best RMSE: 0.5091
+Fold 4, Epoch 40:
+  Train RMSE: 0.5337, Train MAE: 0.1733, Train SMAPE: 0.1669, Train MSE: 0.3342
+  Validation RMSE: 0.5118, Validation MAE: 0.1599, Validation SMAPE: 0.1499, Validation MSE: 0.2996
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 42: New best RMSE: 0.5051
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 43: New best RMSE: 0.5007
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 45: New best RMSE: 0.4982
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 46: New best RMSE: 0.4922
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 48: New best RMSE: 0.4870
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 49: New best RMSE: 0.4848
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 50: New best RMSE: 0.4845
+Fold 4, Epoch 50:
+  Train RMSE: 0.5038, Train MAE: 0.1192, Train SMAPE: 0.1130, Train MSE: 0.3080
+  Validation RMSE: 0.4845, Validation MAE: 0.1107, Validation SMAPE: 0.1046, Validation MSE: 0.2771
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 56: New best RMSE: 0.4835
+Fold 4, Epoch 60:
+  Train RMSE: 0.4986, Train MAE: 0.1111, Train SMAPE: 0.1048, Train MSE: 0.3034
+  Validation RMSE: 0.4852, Validation MAE: 0.1129, Validation SMAPE: 0.1059, Validation MSE: 0.2775
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 62: New best RMSE: 0.4830
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 63: New best RMSE: 0.4823
+Fold 4, Epoch 70:
+  Train RMSE: 0.5017, Train MAE: 0.1190, Train SMAPE: 0.1134, Train MSE: 0.3056
+  Validation RMSE: 0.4845, Validation MAE: 0.1145, Validation SMAPE: 0.1068, Validation MSE: 0.2774
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 71: New best RMSE: 0.4787
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 72: New best RMSE: 0.4782
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 73: New best RMSE: 0.4756
+Fold 4, Epoch 80:
+  Train RMSE: 0.4899, Train MAE: 0.0937, Train SMAPE: 0.0873, Train MSE: 0.2977
+  Validation RMSE: 0.4762, Validation MAE: 0.0936, Validation SMAPE: 0.0878, Validation MSE: 0.2706
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 82: New best RMSE: 0.4742
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 85: New best RMSE: 0.4737
+Fold 4, Epoch 90:
+  Train RMSE: 0.4900, Train MAE: 0.0917, Train SMAPE: 0.0853, Train MSE: 0.2976
+  Validation RMSE: 0.4758, Validation MAE: 0.0908, Validation SMAPE: 0.0851, Validation MSE: 0.2708
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 97: New best RMSE: 0.4733
+Fold 4, Epoch 100:
+  Train RMSE: 0.4892, Train MAE: 0.0907, Train SMAPE: 0.0844, Train MSE: 0.2972
+  Validation RMSE: 0.4742, Validation MAE: 0.0879, Validation SMAPE: 0.0823, Validation MSE: 0.2700
+Fold 4, Epoch 110:
+  Train RMSE: 0.4892, Train MAE: 0.0895, Train SMAPE: 0.0830, Train MSE: 0.2967
+  Validation RMSE: 0.4736, Validation MAE: 0.0868, Validation SMAPE: 0.0811, Validation MSE: 0.2699
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 111: New best RMSE: 0.4731
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 4, Epoch 115: New best RMSE: 0.4722
+Fold 4, Epoch 120:
+  Train RMSE: 0.4879, Train MAE: 0.0887, Train SMAPE: 0.0824, Train MSE: 0.2961
+  Validation RMSE: 0.4749, Validation MAE: 0.0888, Validation SMAPE: 0.0830, Validation MSE: 0.2708
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 1: New best RMSE: 10.4154
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 2: New best RMSE: 6.5072
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 3: New best RMSE: 3.6816
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 4: New best RMSE: 3.1861
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 5: New best RMSE: 3.0975
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 6: New best RMSE: 3.0583
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 7: New best RMSE: 3.0211
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 8: New best RMSE: 2.9825
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 9: New best RMSE: 2.9158
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 10: New best RMSE: 2.8623
+Fold 5, Epoch 10:
+  Train RMSE: 3.1459, Train MAE: 0.8354, Train SMAPE: 0.6088, Train MSE: 10.2503
+  Validation RMSE: 2.8623, Validation MAE: 0.8023, Validation SMAPE: 0.6267, Validation MSE: 8.3592
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 11: New best RMSE: 2.7319
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 12: New best RMSE: 2.5287
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 13: New best RMSE: 2.1429
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 14: New best RMSE: 1.5861
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 15: New best RMSE: 1.1608
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 16: New best RMSE: 0.8747
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 17: New best RMSE: 0.6902
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 18: New best RMSE: 0.5955
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 19: New best RMSE: 0.5464
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 20: New best RMSE: 0.5226
+Fold 5, Epoch 20:
+  Train RMSE: 0.5795, Train MAE: 0.2181, Train SMAPE: 0.2023, Train MSE: 0.3668
+  Validation RMSE: 0.5226, Validation MAE: 0.2057, Validation SMAPE: 0.1942, Validation MSE: 0.2996
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 21: New best RMSE: 0.5015
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 22: New best RMSE: 0.4955
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 23: New best RMSE: 0.4793
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 24: New best RMSE: 0.4747
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 25: New best RMSE: 0.4663
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 27: New best RMSE: 0.4640
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 28: New best RMSE: 0.4562
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 29: New best RMSE: 0.4537
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 30: New best RMSE: 0.4492
+Fold 5, Epoch 30:
+  Train RMSE: 0.5007, Train MAE: 0.1466, Train SMAPE: 0.1387, Train MSE: 0.2888
+  Validation RMSE: 0.4492, Validation MAE: 0.1371, Validation SMAPE: 0.1333, Validation MSE: 0.2349
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 31: New best RMSE: 0.4448
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 32: New best RMSE: 0.4443
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 34: New best RMSE: 0.4393
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 35: New best RMSE: 0.4390
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 36: New best RMSE: 0.4346
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 37: New best RMSE: 0.4345
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 39: New best RMSE: 0.4327
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 40: New best RMSE: 0.4301
+Fold 5, Epoch 40:
+  Train RMSE: 0.4783, Train MAE: 0.1208, Train SMAPE: 0.1152, Train MSE: 0.2687
+  Validation RMSE: 0.4301, Validation MAE: 0.1116, Validation SMAPE: 0.1075, Validation MSE: 0.2207
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 42: New best RMSE: 0.4288
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 43: New best RMSE: 0.4277
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 44: New best RMSE: 0.4253
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 45: New best RMSE: 0.4243
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 46: New best RMSE: 0.4226
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 48: New best RMSE: 0.4226
+Fold 5, Epoch 50:
+  Train RMSE: 0.4717, Train MAE: 0.1116, Train SMAPE: 0.1073, Train MSE: 0.2637
+  Validation RMSE: 0.4231, Validation MAE: 0.1041, Validation SMAPE: 0.1018, Validation MSE: 0.2157
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 51: New best RMSE: 0.4215
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 53: New best RMSE: 0.4215
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 54: New best RMSE: 0.4181
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 56: New best RMSE: 0.4177
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 57: New best RMSE: 0.4171
+Fold 5, Epoch 60:
+  Train RMSE: 0.4795, Train MAE: 0.1259, Train SMAPE: 0.1218, Train MSE: 0.2688
+  Validation RMSE: 0.4388, Validation MAE: 0.1334, Validation SMAPE: 0.1247, Validation MSE: 0.2251
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 64: New best RMSE: 0.4167
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 65: New best RMSE: 0.4148
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 66: New best RMSE: 0.4096
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 68: New best RMSE: 0.4096
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 70: New best RMSE: 0.4090
+Fold 5, Epoch 70:
+  Train RMSE: 0.4571, Train MAE: 0.0860, Train SMAPE: 0.0816, Train MSE: 0.2536
+  Validation RMSE: 0.4090, Validation MAE: 0.0814, Validation SMAPE: 0.0785, Validation MSE: 0.2065
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 72: New best RMSE: 0.4078
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 78: New best RMSE: 0.4076
+Fold 5, Epoch 80:
+  Train RMSE: 0.4559, Train MAE: 0.0835, Train SMAPE: 0.0789, Train MSE: 0.2524
+  Validation RMSE: 0.4097, Validation MAE: 0.0831, Validation SMAPE: 0.0811, Validation MSE: 0.2063
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 83: New best RMSE: 0.4069
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 85: New best RMSE: 0.4064
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 88: New best RMSE: 0.4054
+Fold 5, Epoch 90:
+  Train RMSE: 0.4552, Train MAE: 0.0837, Train SMAPE: 0.0794, Train MSE: 0.2523
+  Validation RMSE: 0.4067, Validation MAE: 0.0796, Validation SMAPE: 0.0774, Validation MSE: 0.2044
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 94: New best RMSE: 0.4046
+Fold 5, Epoch 100:
+  Train RMSE: 0.4559, Train MAE: 0.0818, Train SMAPE: 0.0772, Train MSE: 0.2520
+  Validation RMSE: 0.4049, Validation MAE: 0.0770, Validation SMAPE: 0.0748, Validation MSE: 0.2036
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 101: New best RMSE: 0.4039
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 103: New best RMSE: 0.4033
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 106: New best RMSE: 0.4021
+Fold 5, Epoch 110:
+  Train RMSE: 0.4518, Train MAE: 0.0743, Train SMAPE: 0.0699, Train MSE: 0.2493
+  Validation RMSE: 0.4021, Validation MAE: 0.0705, Validation SMAPE: 0.0678, Validation MSE: 0.2019
+Best scaler saved at /home/recoil/shared_space/EV_charging_demand_prediction/codes/main_model/misc/Graphs_CVRE_best_scaler_4.pkl
+Fold 5, Epoch 117: New best RMSE: 0.4009
+Fold 5, Epoch 120:
+  Train RMSE: 0.4507, Train MAE: 0.0714, Train SMAPE: 0.0668, Train MSE: 0.2495
+  Validation RMSE: 0.4013, Validation MAE: 0.0679, Validation SMAPE: 0.0651, Validation MSE: 0.2016
++----------+----------------------+---------------------------+
+| Metric   | Train (Mean ± Std)   | Validation (Mean ± Std)   |
++==========+======================+===========================+
+| RMSE     | 0.4991 ± 0.0365      | 0.4667 ± 0.0348           |
++----------+----------------------+---------------------------+
+| MAE      | 0.0848 ± 0.0085      | 0.0821 ± 0.0084           |
++----------+----------------------+---------------------------+
+| SMAPE    | 0.0785 ± 0.0072      | 0.0767 ± 0.0073           |
++----------+----------------------+---------------------------+
+| MSE      | 0.2986 ± 0.0338      | 0.2695 ± 0.0366           |
++----------+----------------------+---------------------------+
+Test MSE: 0.2988
+Test RMSE: 0.4819
+Test MAE: 0.0733
+Test SMAPE: 0.0677

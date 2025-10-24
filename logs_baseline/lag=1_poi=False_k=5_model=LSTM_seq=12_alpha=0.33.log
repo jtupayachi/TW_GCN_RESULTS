@@ -1,0 +1,503 @@
+[Parallel(n_jobs=-1)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=-1)]: Done 146 out of 200 | elapsed:    0.7s remaining:    0.3s
+[Parallel(n_jobs=-1)]: Done 200 out of 200 | elapsed:    0.8s finished
+[Parallel(n_jobs=128)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=128)]: Done 146 out of 200 | elapsed:    0.1s remaining:    0.0s
+[Parallel(n_jobs=128)]: Done 200 out of 200 | elapsed:    0.1s finished
+[Parallel(n_jobs=-1)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=-1)]: Done 146 out of 200 | elapsed:    1.0s remaining:    0.4s
+[Parallel(n_jobs=-1)]: Done 200 out of 200 | elapsed:    1.2s finished
+[Parallel(n_jobs=128)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=128)]: Done 146 out of 200 | elapsed:    0.1s remaining:    0.0s
+[Parallel(n_jobs=128)]: Done 200 out of 200 | elapsed:    0.1s finished
+[Parallel(n_jobs=-1)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=-1)]: Done 146 out of 200 | elapsed:    1.4s remaining:    0.5s
+[Parallel(n_jobs=-1)]: Done 200 out of 200 | elapsed:    1.6s finished
+[Parallel(n_jobs=128)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=128)]: Done 146 out of 200 | elapsed:    0.1s remaining:    0.0s
+[Parallel(n_jobs=128)]: Done 200 out of 200 | elapsed:    0.1s finished
+[Parallel(n_jobs=-1)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=-1)]: Done 146 out of 200 | elapsed:    2.1s remaining:    0.8s
+[Parallel(n_jobs=-1)]: Done 200 out of 200 | elapsed:    2.5s finished
+[Parallel(n_jobs=128)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=128)]: Done 146 out of 200 | elapsed:    0.1s remaining:    0.0s
+[Parallel(n_jobs=128)]: Done 200 out of 200 | elapsed:    0.1s finished
+[Parallel(n_jobs=-1)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=-1)]: Done 146 out of 200 | elapsed:    2.2s remaining:    0.8s
+[Parallel(n_jobs=-1)]: Done 200 out of 200 | elapsed:    2.7s finished
+[Parallel(n_jobs=128)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=128)]: Done 146 out of 200 | elapsed:    0.1s remaining:    0.0s
+[Parallel(n_jobs=128)]: Done 200 out of 200 | elapsed:    0.1s finished
+[Parallel(n_jobs=-1)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=-1)]: Done 146 out of 200 | elapsed:    2.4s remaining:    0.9s
+[Parallel(n_jobs=-1)]: Done 200 out of 200 | elapsed:    2.9s finished
+[Parallel(n_jobs=128)]: Using backend ThreadingBackend with 128 concurrent workers.
+[Parallel(n_jobs=128)]: Done 146 out of 200 | elapsed:    0.1s remaining:    0.0s
+[Parallel(n_jobs=128)]: Done 200 out of 200 | elapsed:    0.1s finished
+.......
+Warning: using -h 0 may be faster
+*....................
+Warning: using -h 0 may be faster
+*.
+Warning: using -h 0 may be faster
+*
+optimization finished, #iter = 27710
+obj = -12597.020009, rho = 0.241759
+nSV = 3014, nBSV = 1977
+.............
+Warning: using -h 0 may be faster
+*........................................
+Warning: using -h 0 may be faster
+*....
+Warning: using -h 0 may be faster
+*
+optimization finished, #iter = 56771
+obj = -21345.561959, rho = 0.118261
+nSV = 5341, nBSV = 3615
+Running with parameters: LAG_HOURS=1, DOWNLOAD_POIS=False, NUM_CLUSTERS=5, MODEL=LSTM, SEQ_LENGTH=12, ALPHA=0.33, TRAFFIC_FEATURE=True, WEATHER_FEATURE=True, ADJACENCY=True, NUM_EPOCHS=125
+[37760, 37380, 37642, 37643, 37388, 37902, 38549, 37402, 37659, 38556, 38301, 37030, 37416, 38570, 37166, 38320, 37043, 37172, 37813, 37814, 38583, 38585, 37820, 38462, 37185, 38468, 38340, 37708, 38478, 37334, 37083, 38237, 37725, 37601, 38242, 37857, 37347, 37862, 37863, 37615, 37745, 37620, 38004, 37110, 38012]
+          zip                 hour  ...  delay_per_mile       TTI
+114758  37708  2024-01-08 14:00:00  ...       -0.144543  1.071117
+199311  37030  2024-11-25 15:00:00  ...       -0.245042  1.145850
+4772    37185  2024-12-13 20:00:00  ...       -0.116627  1.023439
+374892  37620  2024-02-21 12:00:00  ...       -0.268849  1.085906
+115270  37708  2024-01-29 22:00:00  ...       -0.028154  1.014672
+147814  37708  2024-09-09 22:00:00  ...       -0.108145  1.054321
+235958  37185  2024-08-16 14:00:00  ...       -0.228922  1.045705
+407349  37642  2024-10-07 21:00:00  ...        0.006098  0.945904
+316253  37820  2025-01-28 05:00:00  ...       -0.024579  1.003067
+360648  38549  2024-03-18 00:00:00  ...       -0.024236  1.009761
+
+[10 rows x 12 columns]
+(428760, 12)
+         station_zip             datetime  ...  Humidity Bucket  Precip. Bucket
+7735739        37601  2024-05-03 04:00:00  ...                5               1
+7033051        38012  2024-04-23 08:00:00  ...                5               1
+6339802        37814  2024-04-10 22:00:00  ...               -1              -1
+2306070        37862  2024-02-06 00:00:00  ...                5               1
+8912377        37902  2024-11-29 16:00:00  ...               -1              -1
+8918147        38556  2024-12-04 02:00:00  ...               -1              -1
+8790424        38242  2024-08-08 07:00:00  ...               -1              -1
+2320615        37601  2024-02-06 20:00:00  ...                4               1
+8853589        37110  2024-10-05 04:00:00  ...               -1              -1
+8867750        37862  2024-10-19 05:00:00  ...               -1              -1
+
+[10 rows x 12 columns]
+(428760, 12)
+       charger_id  station_zip  ... charging_time_seconds  energy_kwh
+50155     1988061        37863  ...                3347.0    2.631879
+84963     5397731        37601  ...                3600.0    4.478858
+57923    15694171        37601  ...                 370.0    5.049369
+34493     1988061        37863  ...                3600.0    4.595088
+99228    15332351        37388  ...                3354.0   13.075771
+35955    13606061        37043  ...                  61.0    0.000000
+96191     1988061        37863  ...                3600.0    5.151833
+23762    13606061        37043  ...                 305.0    3.244302
+4796     13164881        37620  ...                  60.0    0.000100
+49172    15694171        37601  ...                 121.0    0.000000
+
+[10 rows x 7 columns]
+(55055, 7)
+Empty DataFrame
+Columns: [charger_id, station_zip, start_date_time, station_latitude, station_longitude, charging_time_seconds, energy_kwh]
+Index: []
+<class 'pandas.core.frame.DataFrame'>
+Index: 55055 entries, 0 to 106306
+Data columns (total 9 columns):
+ #   Column                 Non-Null Count  Dtype         
+---  ------                 --------------  -----         
+ 0   charger_id             55055 non-null  int64         
+ 1   station_zip            55055 non-null  int64         
+ 2   start_date_time        55055 non-null  datetime64[ns]
+ 3   station_latitude       55055 non-null  float64       
+ 4   station_longitude      55055 non-null  float64       
+ 5   charging_time_seconds  55055 non-null  float64       
+ 6   energy_kwh             55055 non-null  float64       
+ 7   month_year             55055 non-null  period[M]     
+ 8   year_month             55055 non-null  period[M]     
+dtypes: datetime64[ns](1), float64(4), int64(2), period[M](2)
+memory usage: 4.2 MB
+               Period  Count_of_negatives
+7  2024-08 to 2025-01              351046
+5  2024-06 to 2024-11              352555
+6  2024-07 to 2024-12              353604
+3  2024-04 to 2024-09              354884
+4  2024-05 to 2024-10              355613
+1  2024-02 to 2024-07              356034
+0  2024-01 to 2024-06              357385
+2  2024-03 to 2024-08              358202
+Value counts for energy_kWh:
+ energy_kWh
+-1.000000     768542
+ 0.000000       1284
+ 17.066299         2
+ 9.843100          2
+ 15.860700         2
+               ...  
+ 5.833772          1
+ 0.171563          1
+ 2.296312          1
+ 2.500192          1
+ 43.750599         1
+Name: count, Length: 47663, dtype: int64
+
+Rows with energy_kWh == -1: 768542
+Rows with energy_kWh != -1: 48974
+
+Rows where energy_kWh == -1:
+       station_id     start_date_time  ...  has_retail_shopping  has_police
+0          682921 2024-01-01 00:00:00  ...                False       False
+1         1785631 2024-01-01 00:00:00  ...                False       False
+2         1932851 2024-01-01 00:00:00  ...                False       False
+3         1933211 2024-01-01 00:00:00  ...                False       False
+4         1988061 2024-01-01 00:00:00  ...                False       False
+...           ...                 ...  ...                  ...         ...
+817511   16311461 2025-01-31 01:00:00  ...                False       False
+817512   16311861 2025-01-31 01:00:00  ...                False       False
+817513   16698191 2025-01-31 01:00:00  ...                False       False
+817514   16698241 2025-01-31 01:00:00  ...                False       False
+817515   16698261 2025-01-31 01:00:00  ...                False       False
+
+[768542 rows x 19 columns]
+
+Rows where energy_kWh != -1:
+       station_id     start_date_time  ...  has_retail_shopping  has_police
+22        8851921 2024-01-01 00:00:00  ...                False        True
+91        1988141 2024-01-01 01:00:00  ...                False       False
+108       8851921 2024-01-01 01:00:00  ...                False        True
+177       1988141 2024-01-01 02:00:00  ...                False       False
+194       8851921 2024-01-01 02:00:00  ...                False        True
+...           ...                 ...  ...                  ...         ...
+817313   14083171 2025-01-30 23:00:00  ...                False       False
+817352    5397731 2025-01-31 00:00:00  ...                False       False
+817357    5525971 2025-01-31 00:00:00  ...                False       False
+817380   13606121 2025-01-31 00:00:00  ...                False       False
+817443    5525971 2025-01-31 01:00:00  ...                False       False
+
+[48974 rows x 19 columns]
+The array contains values other than 0.
+Empty DataFrame
+Columns: [station_id, start_date_time, count]
+Index: []
+Warning: The following expected features are missing and will be ignored: ['Temperature Bucket', 'Pressure Bucket', 'Wind Speed Bucket', 'Humidity Bucket', 'Precip. Bucket', 'zip']
+
+==================================================
+Training RandomForest...
+
+Fold 1: Training on 25044 samples, validating on 25043 samples
+Fold 1 Results:
+RMSE: 2.7920
+MSE: 7.7950
+MAE: 0.7811
+SMAPE: 56.1526
+
+Fold 2: Training on 50087 samples, validating on 25043 samples
+Fold 2 Results:
+RMSE: 3.1253
+MSE: 9.7672
+MAE: 0.7319
+SMAPE: 43.5674
+
+Fold 3: Training on 75130 samples, validating on 25043 samples
+Fold 3 Results:
+RMSE: 3.2689
+MSE: 10.6860
+MAE: 0.8161
+SMAPE: 49.2039
+
+Fold 4: Training on 100173 samples, validating on 25043 samples
+Fold 4 Results:
+RMSE: 3.4323
+MSE: 11.7808
+MAE: 0.9331
+SMAPE: 57.4542
+
+Fold 5: Training on 125216 samples, validating on 25043 samples
+Fold 5 Results:
+RMSE: 3.4388
+MSE: 11.8253
+MAE: 0.8687
+SMAPE: 52.0243
+
+Evaluating RandomForest on the final test set...
+
+Final Test Results for RandomForest:
+Test RMSE: 3.5168
+Test MSE: 12.3676
+Test MAE: 0.8497
+Test SMAPE: 49.0925
+
+==================================================
+Training SVM...
+
+Fold 1: Training on 25044 samples, validating on 25043 samples
+[LibSVM]Fold 1 Results:
+RMSE: 2.7868
+MSE: 7.7663
+MAE: 0.4538
+SMAPE: 17.9304
+
+Fold 2: Training on 50087 samples, validating on 25043 samples
+[LibSVM]Fold 2 Results:
+RMSE: 3.2093
+MSE: 10.2997......................
+Warning: using -h 0 may be faster
+*.................................................................
+Warning: using -h 0 may be faster
+*.
+Warning: using -h 0 may be faster
+*
+optimization finished, #iter = 87868
+obj = -31470.840237, rho = 0.162809
+nSV = 7812, nBSV = 5279
+..........................
+Warning: using -h 0 may be faster
+*.........................................................................................................
+Warning: using -h 0 may be faster
+*
+optimization finished, #iter = 131400
+obj = -42476.071287, rho = 0.142237
+nSV = 10555, nBSV = 7167
+............................
+Warning: using -h 0 may be faster
+*...............................................................................................................................................
+Warning: using -h 0 may be faster
+*.....
+Warning: using -h 0 may be faster
+*
+optimization finished, #iter = 175344
+obj = -54517.427330, rho = 0.207872
+nSV = 13476, nBSV = 9147
+..............................
+Warning: using -h 0 may be faster
+*...............................................................................................................................................................
+Warning: using -h 0 may be faster
+*...
+Warning: using -h 0 may be faster
+*
+optimization finished, #iter = 192169
+obj = -67563.493027, rho = 0.207508
+nSV = 16382, nBSV = 11169
+
+MAE: 0.5046
+SMAPE: 17.6130
+
+Fold 3: Training on 75130 samples, validating on 25043 samples
+[LibSVM]Fold 3 Results:
+RMSE: 3.3274
+MSE: 11.0716
+MAE: 0.5396
+SMAPE: 18.3083
+
+Fold 4: Training on 100173 samples, validating on 25043 samples
+[LibSVM]Fold 4 Results:
+RMSE: 3.5008
+MSE: 12.2555
+MAE: 0.5823
+SMAPE: 19.1828
+
+Fold 5: Training on 125216 samples, validating on 25043 samples
+[LibSVM]Fold 5 Results:
+RMSE: 3.6085
+MSE: 13.0215
+MAE: 0.6199
+SMAPE: 19.0958
+
+Evaluating SVM on the final test set...
+[LibSVM]
+Final Test Results for SVM:
+Test RMSE: 3.7385
+Test MSE: 13.9765
+Test MAE: 0.6348
+Test SMAPE: 20.0074
+
+==================================================
+Training LinearRegression...
+
+Fold 1: Training on 25044 samples, validating on 25043 samples
+Fold 1 Results:
+RMSE: 2.7668
+MSE: 7.6549
+MAE: 0.8065
+SMAPE: 70.5232
+
+Fold 2: Training on 50087 samples, validating on 25043 samples
+Fold 2 Results:
+RMSE: 3.1789
+MSE: 10.1055
+MAE: 0.7634
+SMAPE: 53.2038
+
+Fold 3: Training on 75130 samples, validating on 25043 samples
+Fold 3 Results:
+RMSE: 3.2872
+MSE: 10.8058
+MAE: 0.7929
+SMAPE: 54.1403
+
+Fold 4: Training on 100173 samples, validating on 25043 samples
+Fold 4 Results:
+RMSE: 3.4655
+MSE: 12.0099
+MAE: 0.9503
+SMAPE: 73.2171
+
+Fold 5: Training on 125216 samples, validating on 25043 samples
+Fold 5 Results:
+RMSE: 3.5586
+MSE: 12.6636
+MAE: 0.9444
+SMAPE: 66.0595
+
+Evaluating LinearRegression on the final test set...
+
+Final Test Results for LinearRegression:
+Test RMSE: 3.6862
+Test MSE: 13.5883
+Test MAE: 0.9741
+Test SMAPE: 67.8299
+
+==================================================
+Training Lasso...
+
+Fold 1: Training on 25044 samples, validating on 25043 samples
+Fold 1 Results:
+RMSE: 2.7588
+MSE: 7.6110
+MAE: 0.7753
+SMAPE: 61.3480
+
+Fold 2: Training on 50087 samples, validating on 25043 samples
+Fold 2 Results:
+RMSE: 3.1804
+MSE: 10.1147
+MAE: 0.7644
+SMAPE: 51.3254
+
+Fold 3: Training on 75130 samples, validating on 25043 samples
+Fold 3 Results:
+RMSE: 3.2922
+MSE: 10.8385
+MAE: 0.7919
+SMAPE: 51.4055
+
+Fold 4: Training on 100173 samples, validating on 25043 samples
+Fold 4 Results:
+RMSE: 3.4686
+MSE: 12.0315
+MAE: 0.8420
+SMAPE: 52.8976
+
+Fold 5: Training on 125216 samples, validating on 25043 samples
+Fold 5 Results:
+RMSE: 3.5667
+MSE: 12.7215
+MAE: 0.8904
+SMAPE: 55.9395
+
+Evaluating Lasso on the final test set...
+
+Final Test Results for Lasso:
+Test RMSE: 3.6933
+Test MSE: 13.6407
+Test MAE: 0.9366
+Test SMAPE: 60.3527
+
+==================================================
+Training Ridge...
+
+Fold 1: Training on 25044 samples, validating on 25043 samples
+Fold 1 Results:
+RMSE: 2.7668
+MSE: 7.6552
+MAE: 0.8092
+SMAPE: 71.0191
+
+Fold 2: Training on 50087 samples, validating on 25043 samples
+Fold 2 Results:
+RMSE: 3.1789
+MSE: 10.1055
+MAE: 0.7637
+SMAPE: 53.2475
+
+Fold 3: Training on 75130 samples, validating on 25043 samples
+Fold 3 Results:
+RMSE: 3.2872
+MSE: 10.8059
+MAE: 0.7914
+SMAPE: 53.9030
+
+Fold 4: Training on 100173 samples, validating on 25043 samples
+Fold 4 Results:
+RMSE: 3.4654
+MSE: 12.0087
+MAE: 0.9426
+SMAPE: 71.8436
+
+Fold 5: Training on 125216 samples, validating on 25043 samples
+Fold 5 Results:
+RMSE: 3.5586
+MSE: 12.6637
+MAE: 0.9324
+SMAPE: 64.1134
+
+Evaluating Ridge on the final test set...
+
+Final Test Results for Ridge:
+Test RMSE: 3.6862
+Test MSE: 13.5884
+Test MAE: 0.9741
+Test SMAPE: 67.8263
+
+
+Final Model Comparison:
+
+RandomForest:
+RMSE: 3.2115
+MSE: 10.3709
+MAE: 0.8262
+SMAPE: 51.6805
+Test RMSE: 3.5168
+Test MSE: 12.3676
+Test MAE: 0.8497
+Test SMAPE: 49.0925
+
+SVM:
+RMSE: 3.2866
+MSE: 10.8829
+MAE: 0.5400
+SMAPE: 18.4261
+Test RMSE: 3.7385
+Test MSE: 13.9765
+Test MAE: 0.6348
+Test SMAPE: 20.0074
+
+LinearRegression:
+RMSE: 3.2514
+MSE: 10.6479
+MAE: 0.8515
+SMAPE: 63.4288
+Test RMSE: 3.6862
+Test MSE: 13.5883
+Test MAE: 0.9741
+Test SMAPE: 67.8299
+
+Lasso:
+RMSE: 3.2533
+MSE: 10.6634
+MAE: 0.8128
+SMAPE: 54.5832
+Test RMSE: 3.6933
+Test MSE: 13.6407
+Test MAE: 0.9366
+Test SMAPE: 60.3527
+
+Ridge:
+RMSE: 3.2514
+MSE: 10.6478
+MAE: 0.8478
+SMAPE: 62.8253
+Test RMSE: 3.6862
+Test MSE: 13.5884
+Test MAE: 0.9741
+Test SMAPE: 67.8263

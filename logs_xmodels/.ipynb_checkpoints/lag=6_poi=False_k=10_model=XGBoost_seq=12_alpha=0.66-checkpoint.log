@@ -1,0 +1,609 @@
+Running with parameters: LAG_HOURS=6, DOWNLOAD_POIS=False, NUM_CLUSTERS=10, MODEL=XGBoost, SEQ_LENGTH=12, ALPHA=0.66, TRAFFIC_FEATURE=True, WEATHER_FEATURE=True, ADJACENCY=True, NUM_EPOCHS=125
+[37760, 37380, 37642, 37643, 37388, 37902, 38549, 37402, 37659, 38556, 38301, 37030, 37416, 38570, 37166, 38320, 37043, 37172, 37813, 37814, 38583, 38585, 37820, 38462, 37185, 38468, 38340, 37708, 38478, 37334, 37083, 38237, 37725, 37601, 38242, 37857, 37347, 37862, 37863, 37615, 37745, 37620, 38004, 37110, 38012]
+          zip                 hour  ...  delay_per_mile       TTI
+114758  37708  2024-01-08 14:00:00  ...       -0.144543  1.071117
+199311  37030  2024-11-25 15:00:00  ...       -0.245042  1.145850
+4772    37185  2024-12-13 20:00:00  ...       -0.116627  1.023439
+374892  37620  2024-02-21 12:00:00  ...       -0.268849  1.085906
+115270  37708  2024-01-29 22:00:00  ...       -0.028154  1.014672
+147814  37708  2024-09-09 22:00:00  ...       -0.108145  1.054321
+235958  37185  2024-08-16 14:00:00  ...       -0.228922  1.045705
+407349  37642  2024-10-07 21:00:00  ...        0.006098  0.945904
+316253  37820  2025-01-28 05:00:00  ...       -0.024579  1.003067
+360648  38549  2024-03-18 00:00:00  ...       -0.024236  1.009761
+
+[10 rows x 12 columns]
+(428760, 12)
+         station_zip             datetime  ...  Humidity Bucket  Precip. Bucket
+7735739        37601  2024-05-03 04:00:00  ...                5               1
+7033051        38012  2024-04-23 08:00:00  ...                5               1
+6339802        37814  2024-04-10 22:00:00  ...               -1              -1
+2306070        37862  2024-02-06 00:00:00  ...                5               1
+8912377        37902  2024-11-29 16:00:00  ...               -1              -1
+8918147        38556  2024-12-04 02:00:00  ...               -1              -1
+8790424        38242  2024-08-08 07:00:00  ...               -1              -1
+2320615        37601  2024-02-06 20:00:00  ...                4               1
+8853589        37110  2024-10-05 04:00:00  ...               -1              -1
+8867750        37862  2024-10-19 05:00:00  ...               -1              -1
+
+[10 rows x 12 columns]
+(428760, 12)
+       charger_id  station_zip  ... charging_time_seconds  energy_kwh
+50155     1988061        37863  ...                3347.0    2.631879
+84963     5397731        37601  ...                3600.0    4.478858
+57923    15694171        37601  ...                 370.0    5.049369
+34493     1988061        37863  ...                3600.0    4.595088
+99228    15332351        37388  ...                3354.0   13.075771
+35955    13606061        37043  ...                  61.0    0.000000
+96191     1988061        37863  ...                3600.0    5.151833
+23762    13606061        37043  ...                 305.0    3.244302
+4796     13164881        37620  ...                  60.0    0.000100
+49172    15694171        37601  ...                 121.0    0.000000
+
+[10 rows x 7 columns]
+(55055, 7)
+Empty DataFrame
+Columns: [charger_id, station_zip, start_date_time, station_latitude, station_longitude, charging_time_seconds, energy_kwh]
+Index: []
+<class 'pandas.core.frame.DataFrame'>
+Index: 55055 entries, 0 to 106306
+Data columns (total 9 columns):
+ #   Column                 Non-Null Count  Dtype         
+---  ------                 --------------  -----         
+ 0   charger_id             55055 non-null  int64         
+ 1   station_zip            55055 non-null  int64         
+ 2   start_date_time        55055 non-null  datetime64[ns]
+ 3   station_latitude       55055 non-null  float64       
+ 4   station_longitude      55055 non-null  float64       
+ 5   charging_time_seconds  55055 non-null  float64       
+ 6   energy_kwh             55055 non-null  float64       
+ 7   month_year             55055 non-null  period[M]     
+ 8   year_month             55055 non-null  period[M]     
+dtypes: datetime64[ns](1), float64(4), int64(2), period[M](2)
+memory usage: 4.2 MB
+               Period  Count_of_negatives
+7  2024-08 to 2025-01              351046
+5  2024-06 to 2024-11              352555
+6  2024-07 to 2024-12              353604
+3  2024-04 to 2024-09              354884
+4  2024-05 to 2024-10              355613
+1  2024-02 to 2024-07              356034
+0  2024-01 to 2024-06              357385
+2  2024-03 to 2024-08              358202
+Value counts for energy_kWh:
+ energy_kWh
+-1.000000     768542
+ 0.000000       1284
+ 17.066299         2
+ 9.843100          2
+ 15.860700         2
+               ...  
+ 5.833772          1
+ 0.171563          1
+ 2.296312          1
+ 2.500192          1
+ 43.750599         1
+Name: count, Length: 47663, dtype: int64
+
+Rows with energy_kWh == -1: 768542
+Rows with energy_kWh != -1: 48974
+
+Rows where energy_kWh == -1:
+       station_id     start_date_time  ...  has_retail_shopping  has_police
+0          682921 2024-01-01 00:00:00  ...                False       False
+1         1785631 2024-01-01 00:00:00  ...                False       False
+2         1932851 2024-01-01 00:00:00  ...                False       False
+3         1933211 2024-01-01 00:00:00  ...                False       False
+4         1988061 2024-01-01 00:00:00  ...                False       False
+...           ...                 ...  ...                  ...         ...
+817511   16311461 2025-01-31 01:00:00  ...                False       False
+817512   16311861 2025-01-31 01:00:00  ...                False       False
+817513   16698191 2025-01-31 01:00:00  ...                False       False
+817514   16698241 2025-01-31 01:00:00  ...                False       False
+817515   16698261 2025-01-31 01:00:00  ...                False       False
+
+[768542 rows x 19 columns]
+
+Rows where energy_kWh != -1:
+       station_id     start_date_time  ...  has_retail_shopping  has_police
+22        8851921 2024-01-01 00:00:00  ...                False        True
+91        1988141 2024-01-01 01:00:00  ...                False       False
+108       8851921 2024-01-01 01:00:00  ...                False        True
+177       1988141 2024-01-01 02:00:00  ...                False       False
+194       8851921 2024-01-01 02:00:00  ...                False        True
+...           ...                 ...  ...                  ...         ...
+817313   14083171 2025-01-30 23:00:00  ...                False       False
+817352    5397731 2025-01-31 00:00:00  ...                False       False
+817357    5525971 2025-01-31 00:00:00  ...                False       False
+817380   13606121 2025-01-31 00:00:00  ...                False       False
+817443    5525971 2025-01-31 01:00:00  ...                False       False
+
+[48974 rows x 19 columns]
+The array contains values other than 0.
+Empty DataFrame
+Columns: [station_id, start_date_time, count]
+Index: []
+Warning: The following expected features are missing and will be ignored: ['Temperature Bucket', 'Pressure Bucket', 'Wind Speed Bucket', 'Humidity Bucket', 'Precip. Bucket', 'zip']
+Running with parameters: LAG_HOURS=6, DOWNLOAD_POIS=False, NUM_CLUSTERS=10, MODEL=XGBoost, SEQ_LENGTH=12, ALPHA=0.66, TRAFFIC_FEATURE=True, WEATHER_FEATURE=True, ADJACENCY=True, NUM_EPOCHS=125
+[37760, 37380, 37642, 37643, 37388, 37902, 38549, 37402, 37659, 38556, 38301, 37030, 37416, 38570, 37166, 38320, 37043, 37172, 37813, 37814, 38583, 38585, 37820, 38462, 37185, 38468, 38340, 37708, 38478, 37334, 37083, 38237, 37725, 37601, 38242, 37857, 37347, 37862, 37863, 37615, 37745, 37620, 38004, 37110, 38012]
+          zip                 hour      speed  historical_average_speed  \
+114758  37708  2024-01-08 14:00:00  42.094608                 43.676471   
+199311  37030  2024-11-25 15:00:00  36.915833                 40.000000   
+4772    37185  2024-12-13 20:00:00  44.105093                 44.416667   
+374892  37620  2024-02-21 12:00:00  33.464348                 34.130435   
+115270  37708  2024-01-29 22:00:00  44.436275                 45.088235   
+147814  37708  2024-09-09 22:00:00  42.458333                 44.764706   
+235958  37185  2024-08-16 14:00:00  43.272222                 43.250000   
+407349  37642  2024-10-07 21:00:00  53.916667                 55.000000   
+316253  37820  2025-01-28 05:00:00  54.333333                 54.500000   
+360648  38549  2024-03-18 00:00:00  53.643056                 54.166667   
+
+        reference_speed  travel_time_seconds  confidence_score      cvalue  \
+114758        45.088235            91.640863         24.794118   55.450850   
+199311        42.300000            71.068042         28.958333   85.882879   
+4772          45.138889           224.597167         29.953704   96.248779   
+374892        36.339130           113.725961         28.697101   84.752618   
+115270        45.088235            86.520961         15.691176   40.146330   
+147814        44.764706            89.119814         23.882353   72.017921   
+235958        45.250000           226.640204         30.000000   98.311442   
+407349        51.000000             5.748833         30.000000  100.000000   
+316253        54.500000           436.691417         30.000000   98.958333   
+360648        54.166667           134.491792         15.763889   44.706680   
+
+        speed_deviation  is_congested  delay_per_mile       TTI  
+114758        -1.581863         False       -0.144543  1.071117  
+199311        -3.084167         False       -0.245042  1.145850  
+4772          -0.311574         False       -0.116627  1.023439  
+374892        -0.666087         False       -0.268849  1.085906  
+115270        -0.651961         False       -0.028154  1.014672  
+147814        -2.306373         False       -0.108145  1.054321  
+235958         0.022222         False       -0.228922  1.045705  
+407349        -1.083333         False        0.006098  0.945904  
+316253        -0.166667         False       -0.024579  1.003067  
+360648        -0.523611         False       -0.024236  1.009761  
+(428760, 12)
+         station_zip             datetime  Temperature  Pressure  Wind Speed  \
+7735739        37601  2024-05-03 04:00:00         44.0     29.57         0.0   
+7033051        38012  2024-04-23 08:00:00         55.0     29.68        16.0   
+6339802        37814  2024-04-10 22:00:00         -1.0     -1.00        -1.0   
+2306070        37862  2024-02-06 00:00:00         57.0     29.19         5.0   
+8912377        37902  2024-11-29 16:00:00         -1.0     -1.00        -1.0   
+8918147        38556  2024-12-04 02:00:00         -1.0     -1.00        -1.0   
+8790424        38242  2024-08-08 07:00:00         -1.0     -1.00        -1.0   
+2320615        37601  2024-02-06 20:00:00         62.0     29.14         0.0   
+8853589        37110  2024-10-05 04:00:00         -1.0     -1.00        -1.0   
+8867750        37862  2024-10-19 05:00:00         -1.0     -1.00        -1.0   
+
+         Humidity  Precip.  Temperature Bucket  Pressure Bucket  \
+7735739      93.0      0.0                   2                1   
+7033051      82.0      0.0                   2                1   
+6339802      -1.0     -1.0                  -1               -1   
+2306070      89.0      0.0                   2                1   
+8912377      -1.0     -1.0                  -1               -1   
+8918147      -1.0     -1.0                  -1               -1   
+8790424      -1.0     -1.0                  -1               -1   
+2320615      75.0      0.0                   3                1   
+8853589      -1.0     -1.0                  -1               -1   
+8867750      -1.0     -1.0                  -1               -1   
+
+         Wind Speed Bucket  Humidity Bucket  Precip. Bucket  
+7735739                  1                5               1  
+7033051                  4                5               1  
+6339802                 -1               -1              -1  
+2306070                  1                5               1  
+8912377                 -1               -1              -1  
+8918147                 -1               -1              -1  
+8790424                 -1               -1              -1  
+2320615                  1                4               1  
+8853589                 -1               -1              -1  
+8867750                 -1               -1              -1  
+(428760, 12)
+       charger_id  station_zip     start_date_time  station_latitude  \
+50155     1988061        37863 2024-08-10 16:00:00         35.796936   
+84963     5397731        37601 2024-11-29 18:00:00         36.298910   
+57923    15694171        37601 2024-09-05 02:00:00         36.316123   
+34493     1988061        37863 2024-06-15 17:00:00         35.796936   
+99228    15332351        37388 2025-01-09 15:00:00         35.361802   
+35955    13606061        37043 2024-06-21 06:00:00         36.523896   
+96191     1988061        37863 2025-01-01 01:00:00         35.796936   
+23762    13606061        37043 2024-05-04 17:00:00         36.523896   
+4796     13164881        37620 2024-02-01 00:00:00         36.591829   
+49172    15694171        37601 2024-08-07 14:00:00         36.316123   
+
+       station_longitude  charging_time_seconds  energy_kwh  
+50155         -83.532630                 3347.0    2.631879  
+84963         -82.293709                 3600.0    4.478858  
+57923         -82.349939                  370.0    5.049369  
+34493         -83.532630                 3600.0    4.595088  
+99228         -86.209720                 3354.0   13.075771  
+35955         -87.223369                   61.0    0.000000  
+96191         -83.532630                 3600.0    5.151833  
+23762         -87.223369                  305.0    3.244302  
+4796          -82.261561                   60.0    0.000100  
+49172         -82.349939                  121.0    0.000000  
+(55055, 7)
+Empty DataFrame
+Columns: [charger_id, station_zip, start_date_time, station_latitude, station_longitude, charging_time_seconds, energy_kwh]
+Index: []
+<class 'pandas.core.frame.DataFrame'>
+Index: 55055 entries, 0 to 106306
+Data columns (total 9 columns):
+ #   Column                 Non-Null Count  Dtype         
+---  ------                 --------------  -----         
+ 0   charger_id             55055 non-null  int64         
+ 1   station_zip            55055 non-null  int64         
+ 2   start_date_time        55055 non-null  datetime64[ns]
+ 3   station_latitude       55055 non-null  float64       
+ 4   station_longitude      55055 non-null  float64       
+ 5   charging_time_seconds  55055 non-null  float64       
+ 6   energy_kwh             55055 non-null  float64       
+ 7   month_year             55055 non-null  period[M]     
+ 8   year_month             55055 non-null  period[M]     
+dtypes: datetime64[ns](1), float64(4), int64(2), period[M](2)
+memory usage: 4.2 MB
+               Period  Count_of_negatives
+7  2024-08 to 2025-01              351046
+5  2024-06 to 2024-11              352555
+6  2024-07 to 2024-12              353604
+3  2024-04 to 2024-09              354884
+4  2024-05 to 2024-10              355613
+1  2024-02 to 2024-07              356034
+0  2024-01 to 2024-06              357385
+2  2024-03 to 2024-08              358202
+Value counts for energy_kWh:
+ energy_kWh
+-1.000000     768542
+ 0.000000       1284
+ 17.066299         2
+ 9.843100          2
+ 15.860700         2
+               ...  
+ 5.833772          1
+ 0.171563          1
+ 2.296312          1
+ 2.500192          1
+ 43.750599         1
+Name: count, Length: 47663, dtype: int64
+
+Rows with energy_kWh == -1: 768542
+Rows with energy_kWh != -1: 48974
+
+Rows where energy_kWh == -1:
+       station_id     start_date_time  charging_time_seconds  energy_kWh  \
+0          682921 2024-01-01 00:00:00                     -1        -1.0   
+1         1785631 2024-01-01 00:00:00                     -1        -1.0   
+2         1932851 2024-01-01 00:00:00                     -1        -1.0   
+3         1933211 2024-01-01 00:00:00                     -1        -1.0   
+4         1988061 2024-01-01 00:00:00                     -1        -1.0   
+...           ...                 ...                    ...         ...   
+817511   16311461 2025-01-31 01:00:00                     -1        -1.0   
+817512   16311861 2025-01-31 01:00:00                     -1        -1.0   
+817513   16698191 2025-01-31 01:00:00                     -1        -1.0   
+817514   16698241 2025-01-31 01:00:00                     -1        -1.0   
+817515   16698261 2025-01-31 01:00:00                     -1        -1.0   
+
+         latitude  longitude station_zip  hour day_of_week  charger_id  \
+0       35.040118 -85.309134       37402     0      Monday      682921   
+1       36.400298 -83.018459       37857     0      Monday     1785631   
+2       36.319022 -82.353549       37601     0      Monday     1932851   
+3       36.296748 -82.471256       37659     0      Monday     1933211   
+4       35.796936 -83.532630       37863     0      Monday     1988061   
+...           ...        ...         ...   ...         ...         ...   
+817511  35.043928 -85.678966       37347     1      Friday    16311461   
+817512  35.043958 -85.679011       37347     1      Friday    16311861   
+817513  36.369893 -82.428536       37615     1      Friday    16698191   
+817514  36.370113 -82.428277       37615     1      Friday    16698241   
+817515  36.370142 -82.428222       37615     1      Friday    16698261   
+
+        has_hospital  has_supermarket  has_school  has_restaurant  has_park  \
+0              False            False       False           False     False   
+1              False             True       False           False     False   
+2              False            False       False           False     False   
+3              False            False       False           False     False   
+4              False            False       False           False     False   
+...              ...              ...         ...             ...       ...   
+817511         False            False       False           False     False   
+817512         False            False       False           False     False   
+817513         False            False       False           False     False   
+817514         False            False       False           False     False   
+817515         False            False       False           False     False   
+
+        has_higher_educ  has_library  has_retail_shopping  has_police  
+0                 False        False                False       False  
+1                 False        False                False       False  
+2                 False        False                False       False  
+3                 False        False                False       False  
+4                 False        False                False       False  
+...                 ...          ...                  ...         ...  
+817511            False        False                False       False  
+817512            False        False                False       False  
+817513            False        False                False       False  
+817514            False        False                False       False  
+817515            False        False                False       False  
+
+[768542 rows x 19 columns]
+
+Rows where energy_kWh != -1:
+       station_id     start_date_time  charging_time_seconds  energy_kWh  \
+22        8851921 2024-01-01 00:00:00                    488    7.570092   
+91        1988141 2024-01-01 01:00:00                    597    0.612786   
+108       8851921 2024-01-01 01:00:00                   3600   49.886846   
+177       1988141 2024-01-01 02:00:00                   3600    3.362657   
+194       8851921 2024-01-01 02:00:00                    486    1.434111   
+...           ...                 ...                    ...         ...   
+817313   14083171 2025-01-30 23:00:00                    609   10.590600   
+817352    5397731 2025-01-31 00:00:00                    812    0.263076   
+817357    5525971 2025-01-31 00:00:00                   3600    5.559012   
+817380   13606121 2025-01-31 00:00:00                    432    2.131477   
+817443    5525971 2025-01-31 01:00:00                      3    0.001048   
+
+         latitude  longitude station_zip  hour day_of_week  charger_id  \
+22      35.867615 -83.564766       37862     0      Monday     8851921   
+91      35.812756 -83.536514       37862     1      Monday     1988141   
+108     35.867615 -83.564766       37862     1      Monday     8851921   
+177     35.812756 -83.536514       37862     2      Monday     1988141   
+194     35.867615 -83.564766       37862     2      Monday     8851921   
+...           ...        ...         ...   ...         ...         ...   
+817313  35.440832 -88.639299       38340    23    Thursday    14083171   
+817352  36.298910 -82.293709       37601     0      Friday     5397731   
+817357  35.924793 -85.465200       38583     0      Friday     5525971   
+817380  36.523888 -87.223311       37043     0      Friday    13606121   
+817443  35.924793 -85.465200       38583     1      Friday     5525971   
+
+        has_hospital  has_supermarket  has_school  has_restaurant  has_park  \
+22             False            False       False           False     False   
+91             False            False       False           False     False   
+108            False            False       False           False     False   
+177            False            False       False           False     False   
+194            False            False       False           False     False   
+...              ...              ...         ...             ...       ...   
+817313         False            False       False           False     False   
+817352         False            False       False           False     False   
+817357         False            False       False           False     False   
+817380         False            False       False           False     False   
+817443         False            False       False           False     False   
+
+        has_higher_educ  has_library  has_retail_shopping  has_police  
+22                False        False                False        True  
+91                False        False                False       False  
+108               False        False                False        True  
+177               False        False                False       False  
+194               False        False                False        True  
+...                 ...          ...                  ...         ...  
+817313            False        False                False       False  
+817352            False         True                False       False  
+817357            False        False                False       False  
+817380            False        False                False       False  
+817443            False        False                False       False  
+
+[48974 rows x 19 columns]
+The array contains values other than 0.
+Empty DataFrame
+Columns: [station_id, start_date_time, count]
+Index: []
+Warning: The following expected features are missing and will be ignored: ['Temperature Bucket', 'Pressure Bucket', 'Wind Speed Bucket', 'Humidity Bucket', 'Precip. Bucket', 'zip']
+
+==================================================
+Training XGBoost...
+
+Fold 1: Training on 25044 samples, validating on 25043 samples
+BEFORE THE MODELS!
+IN
+
+Training XGBoost with early stopping...
+[0]	validation_0-rmse:2.81777
+[10]	validation_0-rmse:2.80339
+[20]	validation_0-rmse:2.80606
+[30]	validation_0-rmse:2.81353
+[32]	validation_0-rmse:2.81459
+Fold 1 Results:
+RMSE: 2.8027
+MSE: 7.8549
+MAE: 0.8739
+SMAPE: 81.9550
+
+Fold 2: Training on 50087 samples, validating on 25043 samples
+BEFORE THE MODELS!
+IN
+
+Training XGBoost with early stopping...
+[0]	validation_0-rmse:3.24364
+[10]	validation_0-rmse:3.22115
+[20]	validation_0-rmse:3.21104
+[30]	validation_0-rmse:3.20892
+[40]	validation_0-rmse:3.20953
+[50]	validation_0-rmse:3.21132
+[52]	validation_0-rmse:3.21119
+Fold 2 Results:
+RMSE: 3.2081
+MSE: 10.2917
+MAE: 0.8599
+SMAPE: 70.8999
+
+Fold 3: Training on 75130 samples, validating on 25043 samples
+BEFORE THE MODELS!
+IN
+
+Training XGBoost with early stopping...
+[0]	validation_0-rmse:3.38585
+[10]	validation_0-rmse:3.36811
+[20]	validation_0-rmse:3.36419
+[30]	validation_0-rmse:3.36885
+[37]	validation_0-rmse:3.37058
+Fold 3 Results:
+RMSE: 3.3636
+MSE: 11.3137
+MAE: 0.9205
+SMAPE: 72.4187
+
+Fold 4: Training on 100173 samples, validating on 25043 samples
+BEFORE THE MODELS!
+IN
+
+Training XGBoost with early stopping...
+[0]	validation_0-rmse:3.45711
+[10]	validation_0-rmse:3.42416
+[20]	validation_0-rmse:3.41077
+[30]	validation_0-rmse:3.40985
+[40]	validation_0-rmse:3.41293
+[43]	validation_0-rmse:3.41366
+Fold 4 Results:
+RMSE: 3.4094
+MSE: 11.6240
+MAE: 0.9498
+SMAPE: 74.3870
+
+Fold 5: Training on 125216 samples, validating on 25043 samples
+BEFORE THE MODELS!
+IN
+
+Training XGBoost with early stopping...
+[0]	validation_0-rmse:3.69706
+[10]	validation_0-rmse:3.65977
+[20]	validation_0-rmse:3.63832
+[30]	validation_0-rmse:3.62402
+[40]	validation_0-rmse:3.61593
+[50]	validation_0-rmse:3.61153
+[60]	validation_0-rmse:3.60851
+[70]	validation_0-rmse:3.60824
+[80]	validation_0-rmse:3.60792
+[90]	validation_0-rmse:3.60797
+[100]	validation_0-rmse:3.60819
+[107]	validation_0-rmse:3.60839
+Fold 5 Results:
+RMSE: 3.6072
+MSE: 13.0120
+MAE: 1.0017
+SMAPE: 71.5154
+
+Evaluating XGBoost on the final test set...
+
+Final Test Results for XGBoost:
+Test RMSE: 3.5719
+Test MSE: 12.7586
+Test MAE: 0.9879
+Test SMAPE: 74.3783
+
+==================================================
+Training LightGBM...
+
+Fold 1: Training on 25044 samples, validating on 25043 samples
+BEFORE THE MODELS!
+
+Training LightGBM with early stopping...
+Training until validation scores don't improve for 20 rounds
+[10]	valid_0's l2: 7.81711
+[20]	valid_0's l2: 7.79241
+[30]	valid_0's l2: 7.80383
+Early stopping, best iteration is:
+[19]	valid_0's l2: 7.79079
+Fold 1 Results:
+RMSE: 2.7912
+MSE: 7.7908
+MAE: 0.8625
+SMAPE: 80.4805
+
+Fold 2: Training on 50087 samples, validating on 25043 samples
+BEFORE THE MODELS!
+
+Training LightGBM with early stopping...
+Training until validation scores don't improve for 20 rounds
+[10]	valid_0's l2: 10.3953
+[20]	valid_0's l2: 10.3171
+[30]	valid_0's l2: 10.2926
+[40]	valid_0's l2: 10.2903
+[50]	valid_0's l2: 10.2777
+[60]	valid_0's l2: 10.2665
+[70]	valid_0's l2: 10.2737
+Early stopping, best iteration is:
+[57]	valid_0's l2: 10.2651
+Fold 2 Results:
+RMSE: 3.2039
+MSE: 10.2651
+MAE: 0.8345
+SMAPE: 66.5051
+
+Fold 3: Training on 75130 samples, validating on 25043 samples
+BEFORE THE MODELS!
+
+Training LightGBM with early stopping...
+Training until validation scores don't improve for 20 rounds
+[10]	valid_0's l2: 11.32
+[20]	valid_0's l2: 11.2718
+[30]	valid_0's l2: 11.2649
+[40]	valid_0's l2: 11.2643
+Early stopping, best iteration is:
+[29]	valid_0's l2: 11.261
+Fold 3 Results:
+RMSE: 3.3557
+MSE: 11.2610
+MAE: 0.9097
+SMAPE: 70.6343
+
+Fold 4: Training on 100173 samples, validating on 25043 samples
+BEFORE THE MODELS!
+
+Training LightGBM with early stopping...
+Training until validation scores don't improve for 20 rounds
+[10]	valid_0's l2: 11.7148
+[20]	valid_0's l2: 11.6205
+[30]	valid_0's l2: 11.5914
+[40]	valid_0's l2: 11.5774
+[50]	valid_0's l2: 11.5795
+[60]	valid_0's l2: 11.5922
+Early stopping, best iteration is:
+[41]	valid_0's l2: 11.5773
+Fold 4 Results:
+RMSE: 3.4025
+MSE: 11.5773
+MAE: 0.9373
+SMAPE: 72.3342
+
+Fold 5: Training on 125216 samples, validating on 25043 samples
+BEFORE THE MODELS!
+
+Training LightGBM with early stopping...
+Training until validation scores don't improve for 20 rounds
+[10]	valid_0's l2: 13.3857
+[20]	valid_0's l2: 13.2406
+[30]	valid_0's l2: 13.1464
+[40]	valid_0's l2: 13.0879
+[50]	valid_0's l2: 13.0587
+[60]	valid_0's l2: 13.0455
+[70]	valid_0's l2: 13.036
+[80]	valid_0's l2: 13.0319
+[90]	valid_0's l2: 13.0342
+[100]	valid_0's l2: 13.0269
+[110]	valid_0's l2: 13.0295
+[120]	valid_0's l2: 13.0317
+Early stopping, best iteration is:
+[100]	valid_0's l2: 13.0269
+Fold 5 Results:
+RMSE: 3.6093
+MSE: 13.0269
+MAE: 0.9972
+SMAPE: 71.2331
+
+Evaluating LightGBM on the final test set...
+
+Final Test Results for LightGBM:
+Test RMSE: 3.5675
+Test MSE: 12.7274
+Test MAE: 0.9796
+Test SMAPE: 73.8809
+
+
+Final Model Comparison:
+
+valid_0:
+l2: ['13.6637', '13.6267', '13.5800', '13.5368', '13.4960', '13.4622', '13.4412', '13.4220', '13.4047', '13.3857', '13.3713', '13.3475', '13.3336', '13.3101', '13.3006', '13.2817', '13.2680', '13.2523', '13.2432', '13.2406', '13.2344', '13.2243', '13.2108', '13.1998', '13.1878', '13.1825', '13.1745', '13.1697', '13.1588', '13.1464', '13.1454', '13.1360', '13.1308', '13.1200', '13.1158', '13.1091', '13.1010', '13.0981', '13.0900', '13.0879', '13.0864', '13.0848', '13.0821', '13.0791', '13.0733', '13.0672', '13.0668', '13.0640', '13.0638', '13.0587', '13.0607', '13.0598', '13.0560', '13.0533', '13.0535', '13.0513', '13.0492', '13.0476', '13.0457', '13.0455', '13.0432', '13.0431', '13.0439', '13.0425', '13.0417', '13.0407', '13.0404', '13.0397', '13.0395', '13.0360', '13.0370', '13.0391', '13.0388', '13.0384', '13.0349', '13.0343', '13.0321', '13.0321', '13.0318', '13.0319', '13.0336', '13.0324', '13.0313', '13.0348', '13.0362', '13.0352', '13.0365', '13.0342', '13.0343', '13.0342', '13.0305', '13.0274', '13.0274', '13.0274', '13.0272', '13.0271', '13.0283', '13.0284', '13.0270', '13.0269', '13.0270', '13.0269', '13.0275', '13.0272', '13.0273', '13.0272', '13.0279', '13.0298', '13.0296', '13.0295', '13.0300', '13.0300', '13.0298', '13.0299', '13.0311', '13.0323', '13.0325', '13.0345', '13.0348', '13.0317']
+
+LightGBM:
+RMSE: 3.2725
+MSE: 10.7842
+MAE: 0.9082
+SMAPE: 72.2374
+Test RMSE: 3.5675
+Test MSE: 12.7274
+Test MAE: 0.9796
+Test SMAPE: 73.8809

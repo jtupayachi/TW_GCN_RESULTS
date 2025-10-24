@@ -1,0 +1,16 @@
+filename,LightGBM_RMSE,LightGBM_MSE,LightGBM_MAE,LightGBM_SMAPE,Test_RMSE,Test_MSE,Test_MAE,Test_SMAPE
+lag=1_poi=False_k=10_model=XGBoost_seq=12_alpha=0.66.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=1_poi=False_k=10_model=XGBoost_seq=12_alpha=0.5.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=3_poi=False_k=5_model=LightGBM_seq=8_alpha=0.33.log,3.2695,10.7636,0.9063,72.2765,3.6403,13.252,1.0064,73.7635
+lag=1_poi=False_k=10_model=XGBoost_seq=8_alpha=0.66.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=3_poi=False_k=5_model=LightGBM_seq=8_alpha=0.66.log,3.2695,10.7636,0.9063,72.2765,3.6403,13.252,1.0064,73.7635
+lag=1_poi=False_k=10_model=XGBoost_seq=4_alpha=0.5.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=1_poi=False_k=10_model=XGBoost_seq=4_alpha=0.66.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=1_poi=False_k=10_model=XGBoost_seq=8_alpha=0.5.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=1_poi=False_k=10_model=XGBoost_seq=12_alpha=0.33.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=1_poi=False_k=10_model=XGBoost_seq=4_alpha=0.33.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=3_poi=False_k=5_model=LightGBM_seq=4_alpha=0.33.log,3.2695,10.7636,0.9063,72.2765,3.6403,13.252,1.0064,73.7635
+lag=3_poi=False_k=5_model=LightGBM_seq=4_alpha=0.5.log,3.2695,10.7636,0.9063,72.2765,3.6403,13.252,1.0064,73.7635
+lag=3_poi=False_k=5_model=LightGBM_seq=8_alpha=0.5.log,3.2695,10.7636,0.9063,72.2765,3.6403,13.252,1.0064,73.7635
+lag=1_poi=False_k=10_model=XGBoost_seq=8_alpha=0.33.log,3.1377,9.913,0.7977,52.8879,3.5184,12.3793,0.8898,56.0593
+lag=3_poi=False_k=5_model=LightGBM_seq=4_alpha=0.66.log,3.2695,10.7636,0.9063,72.2765,3.6403,13.252,1.0064,73.7635
